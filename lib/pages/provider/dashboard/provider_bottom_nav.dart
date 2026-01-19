@@ -3,6 +3,7 @@
 import 'package:fix_master/controllers/provider/dashboard/provider_bottom_nav_controller.dart';
 import 'package:fix_master/pages/provider/earnings/earning_screen.dart';
 import 'package:fix_master/pages/provider/jobs/job_screen.dart';
+import 'package:fix_master/pages/provider/setting/provider_setting_screen.dart';
 import 'package:fix_master/pages/provider/stats/stats_screen.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
@@ -24,7 +25,7 @@ class _ProviderBottomNavState extends State<ProviderBottomNav> {
     JobScreen(),
     EarningsPage(),
     StatsScreen(),
-    Center(child: Text('Settings')),
+    ProviderSettingScreen(),
   ];
 
   void onItemTaapped(int index) {
