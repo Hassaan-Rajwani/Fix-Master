@@ -3,6 +3,7 @@
 import 'package:fix_master/controllers/customer/dashboard/customer_bottom_nav_controller.dart';
 import 'package:fix_master/pages/dashboard/booking/booking_screen.dart';
 import 'package:fix_master/pages/dashboard/home/home_screen.dart';
+import 'package:fix_master/pages/dashboard/setting/setting_screen.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +26,7 @@ class _CustomerBottomNavState extends State<CustomerBottomNav> {
       child: Text('Search Screen', style: appFont(color: AppColor.whiteColor)),
     ),
     BookingScreen(),
-    Center(
-      child: Text('Profile Screen', style: appFont(color: AppColor.whiteColor)),
-    ),
+    SettingScreen(),
   ];
 
   void onItemTaapped(int index) {
