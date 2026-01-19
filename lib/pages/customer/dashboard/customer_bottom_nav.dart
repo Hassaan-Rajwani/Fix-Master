@@ -1,9 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:fix_master/controllers/customer/dashboard/customer_bottom_nav_controller.dart';
-import 'package:fix_master/pages/dashboard/booking/booking_screen.dart';
-import 'package:fix_master/pages/dashboard/home/home_screen.dart';
-import 'package:fix_master/pages/dashboard/setting/setting_screen.dart';
+import 'package:fix_master/pages/customer/booking/booking_screen.dart';
+import 'package:fix_master/pages/customer/home/home_screen.dart';
+import 'package:fix_master/pages/customer/setting/setting_screen.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
 import 'package:flutter/material.dart';

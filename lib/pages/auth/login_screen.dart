@@ -1,5 +1,5 @@
 import 'package:fix_master/pages/auth/signup_screen.dart';
-import 'package:fix_master/pages/dashboard/customer_bottom_nav.dart';
+import 'package:fix_master/pages/customer/dashboard/customer_bottom_nav.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
 import 'package:fix_master/widgets/app_button.dart';
