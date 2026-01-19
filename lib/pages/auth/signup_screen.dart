@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:fix_master/pages/dashboard/customer_bottom_nav.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
 import 'package:fix_master/widgets/app_button.dart';
@@ -14,6 +17,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  String selectedRole = 'customer';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +103,29 @@ class _SignupScreenState extends State<SignupScreen> {
                 // ),
                 // ),
               ),
+              Text(
+                'Select Role',
+                style: appFont(fontWeight: FontWeight.w600, fontSize: 14),
+              ),
+              12.verticalSpace,
+
+              Row(
+                children: [
+                  _roleCard(
+                    title: 'Customer',
+                    icon: Icons.person,
+                    value: 'customer',
+                  ),
+                  12.horizontalSpace,
+                  _roleCard(
+                    title: 'Service Provider',
+                    icon: Icons.handyman,
+                    value: 'provider',
+                  ),
+                ],
+              ),
+              20.verticalSpace,
+
               Text.rich(
                 TextSpan(
                   children: [
@@ -135,6 +163,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 text: 'Sign up',
                 horizontalMargin: 0,
                 onPress: () async {
+                  Get.offAll(() => const CustomerBottomNav());
                   // await sc.onSignup();
                 },
               ),
@@ -149,12 +178,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               20.verticalSpace,
-              // Center(
-              //   child: SvgPicture.asset(
-              //     Platform.isAndroid ? googleIcon : appleIcon,
-              //   ),
-              // ),
-              // 20.verticalSpace,
               Center(
                 child: GestureDetector(
                   onTap: () {
@@ -184,6 +207,53 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               20.verticalSpace,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _roleCard({
+    required String title,
+    required IconData icon,
+    required String value,
+  }) {
+    bool isSelected = selectedRole == value;
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedRole = value;
+          });
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 14.h),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? AppColor.primaryColor.withOpacity(0.1)
+                : Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: isSelected ? AppColor.primaryColor : Colors.grey.shade300,
+              width: 1.5,
+            ),
+          ),
+          child: Column(
+            children: [
+              Icon(
+                icon,
+                color: isSelected ? AppColor.primaryColor : Colors.grey,
+              ),
+              6.verticalSpace,
+              Text(
+                title,
+                style: appFont(
+                  fontWeight: FontWeight.w600,
+                  color: isSelected ? AppColor.primaryColor : Colors.black,
+                ),
+              ),
             ],
           ),
         ),
