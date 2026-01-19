@@ -77,7 +77,10 @@ class _CustomerBottomNavState extends State<CustomerBottomNav> {
           resizeToAvoidBottomInset: false,
           body: screens[bottomNav.bottomNavCurrentIndex.value],
           bottomNavigationBar: ClipRRect(
-            borderRadius: BorderRadius.circular(20.r),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.r),
+              topRight: Radius.circular(20.r),
+            ),
             child: BottomAppBar(
               height: 68.h,
               color: AppColor.primaryColor,
