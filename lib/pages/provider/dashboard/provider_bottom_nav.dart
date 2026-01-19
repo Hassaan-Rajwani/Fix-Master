@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:fix_master/controllers/provider/dashboard/provider_bottom_nav_controller.dart';
+import 'package:fix_master/pages/provider/earnings/earning_screen.dart';
 import 'package:fix_master/pages/provider/jobs/job_screen.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
@@ -20,7 +21,7 @@ class _ProviderBottomNavState extends State<ProviderBottomNav> {
 
   var screens = [
     JobScreen(),
-    Center(child: Text('Earnings')),
+    EarningsPage(),
     Center(child: Text('Stats')),
     Center(child: Text('Settings')),
   ];
