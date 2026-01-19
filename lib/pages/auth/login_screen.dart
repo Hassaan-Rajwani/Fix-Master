@@ -1,9 +1,11 @@
+import 'package:fix_master/pages/auth/signup_screen.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
 import 'package:fix_master/widgets/app_button.dart';
 import 'package:fix_master/widgets/app_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -97,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    // Get.to(() => SignupScreen());
+                    Get.to(() => SignupScreen());
                   },
                   child: Text.rich(
                     textAlign: TextAlign.center,
