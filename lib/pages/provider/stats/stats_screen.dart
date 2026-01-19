@@ -1,46 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StatsScreen extends StatelessWidget {
   const StatsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffF5F6FA),
-      appBar: AppBar(
-        title: const Text("Performance"),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        foregroundColor: Colors.black,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _performanceScoreCard(),
-            const SizedBox(height: 16),
-            _statsGrid(),
-            const SizedBox(height: 24),
-            const Text(
-              "Recent Reviews",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-            _reviewTile(
-              "Emily C.",
-              "Excellent service! Very professional and quick.",
-              2,
-            ),
-            _reviewTile(
-              "David P.",
-              "Great job on the AC. Works perfectly now.",
-              3,
-            ),
-            _reviewTile("Lisa W.", "Good service, arrived on time.", 5),
-            const SizedBox(height: 16),
-            _successMessage(),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color(0xffF5F6FA),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Earnings",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16.h),
+              _performanceScoreCard(),
+              const SizedBox(height: 16),
+              _statsGrid(),
+              const SizedBox(height: 24),
+              const Text(
+                "Recent Reviews",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 12),
+              _reviewTile(
+                "Emily C.",
+                "Excellent service! Very professional and quick.",
+                2,
+              ),
+              _reviewTile(
+                "David P.",
+                "Great job on the AC. Works perfectly now.",
+                3,
+              ),
+              _reviewTile("Lisa W.", "Good service, arrived on time.", 5),
+              const SizedBox(height: 16),
+              _successMessage(),
+            ],
+          ),
         ),
       ),
     );
