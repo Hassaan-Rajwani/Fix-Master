@@ -136,6 +136,7 @@ class EarningsPage extends StatelessWidget {
           title: "This Month",
           amount: "\$8,240",
           subtitle: "124 jobs completed",
+          active: true,
         ),
       ],
     );
