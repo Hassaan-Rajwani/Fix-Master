@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:fix_master/pages/customer/dashboard/customer_bottom_nav.dart';
+import 'package:fix_master/pages/provider/dashboard/provider_bottom_nav.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
 import 'package:fix_master/widgets/app_button.dart';
@@ -163,7 +164,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 text: 'Sign up',
                 horizontalMargin: 0,
                 onPress: () async {
-                  Get.offAll(() => const CustomerBottomNav());
+                  if (selectedRole == 'customer') {
+                    Get.offAll(() => const CustomerBottomNav());
+                  } else {
+                    Get.offAll(() => const ProviderBottomNav());
+                  }
                   // await sc.onSignup();
                 },
               ),
