@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:fix_master/controllers/customer/dashboard/customer_bottom_nav_controller.dart';
+import 'package:fix_master/pages/dashboard/booking/booking_screen.dart';
 import 'package:fix_master/pages/dashboard/home/home_screen.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
@@ -23,12 +24,7 @@ class _CustomerBottomNavState extends State<CustomerBottomNav> {
     Center(
       child: Text('Search Screen', style: appFont(color: AppColor.whiteColor)),
     ),
-    Center(
-      child: Text(
-        'Bookings Screen',
-        style: appFont(color: AppColor.whiteColor),
-      ),
-    ),
+    BookingScreen(),
     Center(
       child: Text('Profile Screen', style: appFont(color: AppColor.whiteColor)),
     ),
