@@ -20,14 +20,7 @@ class CustomerBottomNav extends StatefulWidget {
 class _CustomerBottomNavState extends State<CustomerBottomNav> {
   final bottomNav = Get.put(CustomerBottomNavController());
 
-  var screens = [
-    HomeScreen(),
-    Center(
-      child: Text('Search Screen', style: appFont(color: AppColor.whiteColor)),
-    ),
-    BookingScreen(),
-    SettingScreen(),
-  ];
+  var screens = [HomeScreen(), BookingScreen(), SettingScreen()];
 
   void onItemTaapped(int index) {
     bottomNav.navBarChange(index);
@@ -100,18 +93,12 @@ class _CustomerBottomNavState extends State<CustomerBottomNav> {
                   tabItem(
                     onTap: () => onItemTaapped(1),
                     isSelected: bottomNav.bottomNavCurrentIndex.value == 1,
-                    selectedIcon: Icons.search,
-                    unSelectedIcon: Icons.search_outlined,
-                  ),
-                  tabItem(
-                    onTap: () => onItemTaapped(2),
-                    isSelected: bottomNav.bottomNavCurrentIndex.value == 2,
                     selectedIcon: Icons.calendar_today,
                     unSelectedIcon: Icons.calendar_month_outlined,
                   ),
                   tabItem(
-                    onTap: () => onItemTaapped(3),
-                    isSelected: bottomNav.bottomNavCurrentIndex.value == 3,
+                    onTap: () => onItemTaapped(2),
+                    isSelected: bottomNav.bottomNavCurrentIndex.value == 2,
                     selectedIcon: Icons.settings,
                     unSelectedIcon: Icons.settings_outlined,
                   ),
