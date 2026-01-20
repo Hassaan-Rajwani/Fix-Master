@@ -1,9 +1,11 @@
+import 'package:fix_master/pages/auth/verify_email.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
 import 'package:fix_master/widgets/app_button.dart';
 import 'package:fix_master/widgets/app_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -55,6 +57,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           horizontalMargin: 20,
           onPress: () async {
             // await oc.onForgotPassword();
+            Get.to(
+              () => VerifyEmailScreen(
+                isFromSignup: false,
+                email: 'test@yopmail.com',
+              ),
+            );
           },
         ),
       ),
