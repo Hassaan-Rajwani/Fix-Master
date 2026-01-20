@@ -1,6 +1,7 @@
 import 'package:fix_master/controllers/customer/home/booking_stepper_controller.dart';
 import 'package:fix_master/pages/customer/home/booking/date_time_step.dart';
 import 'package:fix_master/pages/customer/home/booking/location_stepper.dart';
+import 'package:fix_master/pages/customer/home/booking/summary_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -37,7 +38,7 @@ class BookingStepperScreen extends StatelessWidget {
                 case 1:
                   return ServiceLocationStep();
                 case 2:
-                  return const Center(child: Text("Step 3 Component"));
+                  return BookingSummaryStep();
                 case 3:
                   return const Center(child: Text("Step 4 Component"));
                 default:
@@ -91,7 +92,15 @@ class BookingStepperScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
           ),
-          child: const Text("Continue"),
+          child: Obx(
+            () => Text(
+              controller.currentStep.value == 1
+                  ? "Confirm Location"
+                  : controller.currentStep.value == 2
+                  ? "Proceed to Pay"
+                  : "Continue",
+            ),
+          ),
         ),
       ),
     );
