@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/pages/customer/home/booking/track_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class BookingConfirmedScreen extends StatelessWidget {
   const BookingConfirmedScreen({super.key});
@@ -59,7 +61,7 @@ class BookingConfirmedScreen extends StatelessWidget {
                 height: 52.h,
                 child: ElevatedButton(
                   onPressed: () {
-                    /// Get.to(() => TrackServiceScreen());
+                    Get.to(() => TrackServiceScreen());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff4285F4),
