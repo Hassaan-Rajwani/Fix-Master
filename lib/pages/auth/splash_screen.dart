@@ -1,6 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:fix_master/pages/auth/login_screen.dart';
+import 'package:fix_master/utils/color_constant.dart';
+import 'package:fix_master/utils/font_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,10 +15,24 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _fadeScale;
+
   @override
   initState() {
     super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+
+    _fadeScale = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+
+    _controller.forward();
+
     changeScreen();
   }
 
@@ -45,16 +64,54 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: 1.sw,
         height: 1.sh,
-        color: Colors.white,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [AppColor.primaryColor, Color(0xFF0F4C81)],
+          ),
+        ),
         child: Center(
-          child: Text(
-            'Splash Screen',
-            style: TextStyle(color: Colors.black, fontSize: 24.sp),
+          child: FadeTransition(
+            opacity: _fadeScale,
+            child: ScaleTransition(
+              scale: _fadeScale,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/svgs/appIcon.svg', width: 140.w),
+                  SizedBox(height: 20.h),
+                  Text(
+                    'Fix Master',
+                    style: appFont(
+                      color: Colors.white,
+                      fontSize: 38,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 6.h),
+                  Text(
+                    'Professional Home Services',
+                    style: appFont(
+                      color: Colors.white.withOpacity(0.85),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
