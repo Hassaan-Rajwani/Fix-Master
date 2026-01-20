@@ -20,9 +20,9 @@ class CustomerBottomNav extends StatefulWidget {
 class _CustomerBottomNavState extends State<CustomerBottomNav> {
   final bottomNav = Get.put(CustomerBottomNavController());
 
-  var screens = [HomeScreen(), BookingScreen(), SettingScreen()];
+  final screens = [HomeScreen(), BookingScreen(), SettingScreen()];
 
-  void onItemTaapped(int index) {
+  void onItemTapped(int index) {
     bottomNav.navBarChange(index);
   }
 
@@ -32,7 +32,7 @@ class _CustomerBottomNavState extends State<CustomerBottomNav> {
       onWillPop: () async {
         final shouldExit = await showDialog<bool>(
           context: context,
-          builder: (context) => AlertDialog(
+          builder: (_) => AlertDialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.r),
             ),
@@ -42,26 +42,24 @@ class _CustomerBottomNavState extends State<CustomerBottomNav> {
             ),
             content: Text(
               'Are you sure you want to exit?',
-              style: appFont(fontSize: 16),
+              style: appFont(fontSize: 15),
             ),
             actions: [
               TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
+                onPressed: () => Get.back(result: false),
                 child: Text(
                   'No',
                   style: appFont(
-                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: AppColor.primaryColor,
                   ),
                 ),
               ),
               TextButton(
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () => Get.back(result: true),
                 child: Text(
                   'Yes',
                   style: appFont(
-                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: AppColor.primaryColor,
                   ),
@@ -74,77 +72,80 @@ class _CustomerBottomNavState extends State<CustomerBottomNav> {
       },
       child: Obx(
         () => Scaffold(
-          resizeToAvoidBottomInset: false,
           body: screens[bottomNav.bottomNavCurrentIndex.value],
-          bottomNavigationBar: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.r),
-              topRight: Radius.circular(20.r),
+          extendBody: true,
+          bottomNavigationBar: Container(
+            margin: EdgeInsets.all(16.w),
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24.r),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.08),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
             ),
-            child: BottomAppBar(
-              height: 68.h,
-              color: AppColor.primaryColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  tabItem(
-                    onTap: () => onItemTaapped(0),
-                    isSelected: bottomNav.bottomNavCurrentIndex.value == 0,
-                    selectedIcon: Icons.home_filled,
-                    unSelectedIcon: Icons.home_outlined,
-                  ),
-                  tabItem(
-                    onTap: () => onItemTaapped(1),
-                    isSelected: bottomNav.bottomNavCurrentIndex.value == 1,
-                    selectedIcon: Icons.calendar_today,
-                    unSelectedIcon: Icons.calendar_month_outlined,
-                  ),
-                  tabItem(
-                    onTap: () => onItemTaapped(2),
-                    isSelected: bottomNav.bottomNavCurrentIndex.value == 2,
-                    selectedIcon: Icons.settings,
-                    unSelectedIcon: Icons.settings_outlined,
-                  ),
-                ],
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _tabItem(
+                  index: 0,
+                  icon: Icons.home_outlined,
+                  activeIcon: Icons.home_filled,
+                  onTap: onItemTapped,
+                ),
+                _tabItem(
+                  index: 1,
+                  icon: Icons.calendar_month_outlined,
+                  activeIcon: Icons.calendar_today,
+                  onTap: onItemTapped,
+                ),
+                _tabItem(
+                  index: 2,
+                  icon: Icons.settings_outlined,
+                  activeIcon: Icons.settings,
+                  onTap: onItemTapped,
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
   }
-}
 
-Widget tabItem({
-  required VoidCallback onTap,
-  required bool isSelected,
-  required IconData selectedIcon,
-  required IconData unSelectedIcon,
-}) {
-  return GestureDetector(
-    onTap: onTap,
-    behavior: HitTestBehavior.opaque,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          isSelected ? selectedIcon : unSelectedIcon,
-          size: 26.sp,
+  Widget _tabItem({
+    required int index,
+    required IconData icon,
+    required IconData activeIcon,
+    required Function(int) onTap,
+  }) {
+    final isSelected = bottomNav.bottomNavCurrentIndex.value == index;
+
+    return GestureDetector(
+      onTap: () => onTap(index),
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        padding: EdgeInsets.symmetric(
+          horizontal: isSelected ? 18.w : 12.w,
+          vertical: 8.h,
+        ),
+        decoration: BoxDecoration(
           color: isSelected
-              ? AppColor.secondaryColor
-              : Colors.white.withOpacity(0.8),
+              ? AppColor.primaryColor.withOpacity(0.12)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(16.r),
         ),
-        6.verticalSpace,
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          width: isSelected ? 14.w : 0,
-          height: 2.h,
-          decoration: BoxDecoration(
-            color: AppColor.secondaryColor,
-            borderRadius: BorderRadius.circular(2),
-          ),
+        child: Icon(
+          isSelected ? activeIcon : icon,
+          size: 26.sp,
+          color: isSelected ? AppColor.primaryColor : Colors.grey,
         ),
-      ],
-    ),
-  );
+      ),
+    );
+  }
 }

@@ -5,8 +5,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class BookingConfirmedScreen extends StatelessWidget {
+class BookingConfirmedScreen extends StatefulWidget {
   const BookingConfirmedScreen({super.key});
+
+  @override
+  State<BookingConfirmedScreen> createState() => _BookingConfirmedScreenState();
+}
+
+class _BookingConfirmedScreenState extends State<BookingConfirmedScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _bounceAnimation;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    _bounceAnimation = Tween<double>(
+      begin: 0.8,
+      end: 1.2,
+    ).chain(CurveTween(curve: Curves.elasticOut)).animate(_controller);
+
+    _fadeAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,31 +59,41 @@ class BookingConfirmedScreen extends StatelessWidget {
             children: [
               SizedBox(height: 100.h),
 
-              /// ✅ Success Icon
-              Container(
-                height: 90.w,
-                width: 90.w,
-                decoration: const BoxDecoration(
-                  color: Colors.green,
-                  shape: BoxShape.circle,
+              /// ✅ Success Icon with bounce
+              ScaleTransition(
+                scale: _bounceAnimation,
+                child: Container(
+                  height: 90.w,
+                  width: 90.w,
+                  decoration: const BoxDecoration(
+                    color: Colors.green,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.check, color: Colors.white, size: 50),
                 ),
-                child: const Icon(Icons.check, color: Colors.white, size: 50),
               ),
 
               SizedBox(height: 24.h),
 
-              /// 🎉 Title
-              Text(
-                "Booking Confirmed!",
-                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-              ),
-
-              SizedBox(height: 8.h),
-
-              /// Subtitle
-              Text(
-                "Your service has been scheduled",
-                style: TextStyle(fontSize: 13.sp, color: Colors.grey),
+              /// 🎉 Title with fade-in
+              FadeTransition(
+                opacity: _fadeAnimation,
+                child: Column(
+                  children: [
+                    Text(
+                      "Booking Confirmed!",
+                      style: TextStyle(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      "Your service has been scheduled",
+                      style: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                    ),
+                  ],
+                ),
               ),
 
               SizedBox(height: 30.h),
@@ -55,7 +103,7 @@ class BookingConfirmedScreen extends StatelessWidget {
 
               const Spacer(),
 
-              /// 🔵 Track Service Button
+              /// 🔵 Track Service Button with gradient & shadow
               SizedBox(
                 width: double.infinity,
                 height: 52.h,
@@ -64,14 +112,26 @@ class BookingConfirmedScreen extends StatelessWidget {
                     Get.to(() => TrackServiceScreen());
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff4285F4),
+                    padding: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
+                    elevation: 4,
                   ),
-                  child: const Text(
-                    "Track Service",
-                    style: TextStyle(fontSize: 16),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xff4285F4), Color(0xff6EA8FF)],
+                      ),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: const Text(
+                        "Track Service",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -85,14 +145,14 @@ class BookingConfirmedScreen extends StatelessWidget {
   /// 📄 Booking Info Card
   Widget _bookingCard() {
     return Container(
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(18.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 12,
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 16,
             offset: const Offset(0, 6),
           ),
         ],
@@ -104,7 +164,7 @@ class BookingConfirmedScreen extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(8.w),
+                padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
                   color: Colors.blue.withOpacity(0.1),
                   shape: BoxShape.circle,
@@ -112,23 +172,24 @@ class BookingConfirmedScreen extends StatelessWidget {
                 child: const Icon(
                   Icons.electrical_services,
                   color: Color(0xff4285F4),
+                  size: 24,
                 ),
               ),
-              SizedBox(width: 12.w),
+              SizedBox(width: 14.w),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "New Wiring",
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(height: 4.h),
                   Text(
                     "Booking #FM2024001",
-                    style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                    style: TextStyle(fontSize: 13.sp, color: Colors.grey),
                   ),
                 ],
               ),

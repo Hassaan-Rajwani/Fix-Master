@@ -21,14 +21,14 @@ class ProviderBottomNav extends StatefulWidget {
 class _ProviderBottomNavState extends State<ProviderBottomNav> {
   final bottomNav = Get.put(ProviderBottomNavController());
 
-  var screens = [
+  final screens = [
     JobScreen(),
     EarningsPage(),
     StatsScreen(),
     ProviderSettingScreen(),
   ];
 
-  void onItemTaapped(int index) {
+  void onItemTapped(int index) {
     bottomNav.navBarChange(index);
   }
 
@@ -80,83 +80,81 @@ class _ProviderBottomNavState extends State<ProviderBottomNav> {
       },
       child: Obx(
         () => Scaffold(
-          resizeToAvoidBottomInset: false,
+          extendBody: true, // 🔹 makes bottom nav transparent/floating
           body: screens[bottomNav.bottomNavCurrentIndex.value],
-          bottomNavigationBar: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.r),
-              topRight: Radius.circular(20.r),
+          bottomNavigationBar: Container(
+            margin: EdgeInsets.all(16.w),
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.95), // 🔹 slightly transparent
+              borderRadius: BorderRadius.circular(24.r),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.08),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
             ),
-            child: BottomAppBar(
-              height: 68.h,
-              color: AppColor.primaryColor2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  tabItem(
-                    onTap: () => onItemTaapped(0),
-                    isSelected: bottomNav.bottomNavCurrentIndex.value == 0,
-                    selectedIcon: Icons.work,
-                    unSelectedIcon: Icons.work_outline,
-                  ),
-                  tabItem(
-                    onTap: () => onItemTaapped(1),
-                    isSelected: bottomNav.bottomNavCurrentIndex.value == 1,
-                    selectedIcon: Icons.account_balance_wallet,
-                    unSelectedIcon: Icons.account_balance_wallet_outlined,
-                  ),
-                  tabItem(
-                    onTap: () => onItemTaapped(2),
-                    isSelected: bottomNav.bottomNavCurrentIndex.value == 2,
-                    selectedIcon: Icons.bar_chart,
-                    unSelectedIcon: Icons.bar_chart_outlined,
-                  ),
-                  tabItem(
-                    onTap: () => onItemTaapped(3),
-                    isSelected: bottomNav.bottomNavCurrentIndex.value == 3,
-                    selectedIcon: Icons.settings,
-                    unSelectedIcon: Icons.settings_outlined,
-                  ),
-                ],
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _providerTabItem(
+                  index: 0,
+                  icon: Icons.work_outline,
+                  activeIcon: Icons.work,
+                ),
+                _providerTabItem(
+                  index: 1,
+                  icon: Icons.account_balance_wallet_outlined,
+                  activeIcon: Icons.account_balance_wallet,
+                ),
+                _providerTabItem(
+                  index: 2,
+                  icon: Icons.bar_chart_outlined,
+                  activeIcon: Icons.bar_chart,
+                ),
+                _providerTabItem(
+                  index: 3,
+                  icon: Icons.settings_outlined,
+                  activeIcon: Icons.settings,
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
   }
-}
 
-Widget tabItem({
-  required VoidCallback onTap,
-  required bool isSelected,
-  required IconData selectedIcon,
-  required IconData unSelectedIcon,
-}) {
-  return GestureDetector(
-    onTap: onTap,
-    behavior: HitTestBehavior.opaque,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          isSelected ? selectedIcon : unSelectedIcon,
-          size: 26.sp,
+  Widget _providerTabItem({
+    required int index,
+    required IconData icon,
+    required IconData activeIcon,
+  }) {
+    final isSelected = bottomNav.bottomNavCurrentIndex.value == index;
+
+    return GestureDetector(
+      onTap: () => onItemTapped(index),
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        padding: EdgeInsets.symmetric(
+          horizontal: isSelected ? 18.w : 12.w,
+          vertical: 8.h,
+        ),
+        decoration: BoxDecoration(
           color: isSelected
-              ? AppColor.secondaryColor
-              : Colors.white.withOpacity(0.8),
+              ? AppColor.primaryColor2.withOpacity(0.12)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(16.r),
         ),
-        6.verticalSpace,
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          width: isSelected ? 14.w : 0,
-          height: 2.h,
-          decoration: BoxDecoration(
-            color: AppColor.secondaryColor,
-            borderRadius: BorderRadius.circular(2),
-          ),
+        child: Icon(
+          isSelected ? activeIcon : icon,
+          color: isSelected ? AppColor.primaryColor2 : Colors.grey.shade600,
+          size: 26.sp,
         ),
-      ],
-    ),
-  );
+      ),
+    );
+  }
 }

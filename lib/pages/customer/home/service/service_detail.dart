@@ -58,6 +58,7 @@ class ServiceDetailScreen extends StatelessWidget {
                   ),
                   16.verticalSpace,
                   _successMessage(),
+                  30.verticalSpace,
                 ],
               ),
             ),
@@ -70,10 +71,14 @@ class ServiceDetailScreen extends StatelessWidget {
   /// 🔵 Top Header
   Widget _topHeader() {
     return Container(
-      padding: EdgeInsets.fromLTRB(16.w, 55.h, 16.w, 20.h),
-      decoration: const BoxDecoration(
-        color: Color(0xff4285F4),
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(26)),
+      padding: EdgeInsets.fromLTRB(16.w, 70.h, 16.w, 20.h),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xff4285F4), Color(0xff5A9BFF)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(26.r)),
       ),
       child: Column(
         children: [
@@ -83,13 +88,13 @@ class ServiceDetailScreen extends StatelessWidget {
                 onTap: () => Get.back(),
                 child: const Icon(Icons.arrow_back, color: Colors.white),
               ),
-              SizedBox(width: 10.w),
+              10.horizontalSpace,
               CircleAvatar(
-                radius: 22,
+                radius: 24,
                 backgroundColor: Colors.orange,
                 child: const Icon(Icons.flash_on, color: Colors.white),
               ),
-              SizedBox(width: 12.w),
+              12.horizontalSpace,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

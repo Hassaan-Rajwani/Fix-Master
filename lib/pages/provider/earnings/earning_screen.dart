@@ -13,14 +13,15 @@ class EarningsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: EdgeInsets.all(16.w),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 "Earnings",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 16.h),
               _balanceCard(),
@@ -29,18 +30,19 @@ class EarningsPage extends StatelessWidget {
               SizedBox(height: 20.h),
               _transactionsHeader(),
               SizedBox(height: 12.h),
-              _transactionItem(
-                title: "AC Servicing",
-                name: "Emily Chen",
-                amount: "\$85",
-                time: "2:30 PM",
-              ),
-              SizedBox(height: 10.h),
-              _transactionItem(
-                title: "Gas Refill",
-                name: "David Park",
-                amount: "\$120",
-                time: "11:00 AM",
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 5,
+                separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                itemBuilder: (_, index) {
+                  return _transactionItem(
+                    title: "AC Servicing",
+                    name: "Emily Chen",
+                    amount: "\$85",
+                    time: "2:30 PM",
+                  );
+                },
               ),
             ],
           ),
@@ -54,8 +56,19 @@ class EarningsPage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: const Color(0xff14A44D),
+        gradient: const LinearGradient(
+          colors: [Color(0xff14A44D), Color(0xff19C964)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(20.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +92,7 @@ class EarningsPage extends StatelessWidget {
             "\$1,245.80",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 26,
+              fontSize: 28,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -95,8 +108,12 @@ class EarningsPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.r),
                     ),
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
                   ),
-                  child: const Text("Withdraw"),
+                  child: const Text(
+                    "Withdraw",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
               SizedBox(width: 12.w),
@@ -111,10 +128,14 @@ class EarningsPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.r),
                     ),
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
                   ),
                   child: const Text(
                     "View History",
-                    style: TextStyle(color: Color(0xff14A44D)),
+                    style: TextStyle(
+                      color: Color(0xff14A44D),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -160,7 +181,15 @@ class EarningsPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
             color: active ? const Color(0xff14A44D) : Colors.transparent,
+            width: 1.2,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,15 +198,16 @@ class EarningsPage extends StatelessWidget {
               children: [
                 Icon(
                   Icons.calendar_month_outlined,
-                  size: 14,
+                  size: 16,
                   color: active ? const Color(0xff14A44D) : Colors.grey,
                 ),
-                SizedBox(width: 4.w),
+                SizedBox(width: 6.w),
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 11,
+                    fontSize: 12,
                     color: active ? const Color(0xff14A44D) : Colors.grey,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
@@ -190,7 +220,7 @@ class EarningsPage extends StatelessWidget {
             SizedBox(height: 4.h),
             Text(
               subtitle,
-              style: const TextStyle(fontSize: 11, color: Colors.grey),
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
         ),
@@ -200,9 +230,9 @@ class EarningsPage extends StatelessWidget {
 
   // ================= TRANSACTIONS =================
   Widget _transactionsHeader() {
-    return Text(
+    return const Text(
       "Recent Transactions",
-      style: TextStyle(fontWeight: FontWeight.bold),
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
     );
   }
 
@@ -217,16 +247,23 @@ class EarningsPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         children: [
           CircleAvatar(
-            radius: 18,
-            backgroundColor: const Color(0xff14A44D).withOpacity(0.1),
+            radius: 20,
+            backgroundColor: const Color(0xff14A44D).withOpacity(0.15),
             child: const Icon(
               Icons.trending_up,
               color: Color(0xff14A44D),
-              size: 18,
+              size: 20,
             ),
           ),
           SizedBox(width: 12.w),
@@ -253,6 +290,7 @@ class EarningsPage extends StatelessWidget {
                 style: const TextStyle(
                   color: Color(0xff14A44D),
                   fontWeight: FontWeight.bold,
+                  fontSize: 14,
                 ),
               ),
               Text(

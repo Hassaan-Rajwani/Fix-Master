@@ -20,7 +20,7 @@ class PaymentMethodsScreen extends StatelessWidget {
         backgroundColor: const Color(0xffF6F7FB),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Get.back(),
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           "Payment Methods",
@@ -29,13 +29,13 @@ class PaymentMethodsScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: PaymentMethodStep(),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(16.w),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.symmetric(horizontal: 30),
+        margin: EdgeInsets.only(bottom: 30),
         child: SizedBox(
           height: 52.h,
           child: ElevatedButton(
             onPressed: () {
-              /// Save selected payment method
               Get.back();
             },
             style: ElevatedButton.styleFrom(

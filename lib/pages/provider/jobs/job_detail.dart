@@ -38,19 +38,26 @@ class JobDetailScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        gradient: const LinearGradient(
+          colors: [Color(0xff4F7CFE), Color(0xff6AA8FF)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(20.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Row(
         children: [
           CircleAvatar(
             radius: 28,
-            backgroundColor: const Color(0xff4F7CFE).withOpacity(0.1),
-            child: const Icon(
-              Icons.ac_unit,
-              color: Color(0xff4F7CFE),
-              size: 30,
-            ),
+            backgroundColor: Colors.white.withOpacity(0.2),
+            child: const Icon(Icons.ac_unit, color: Colors.white, size: 30),
           ),
           SizedBox(width: 12.w),
           Column(
@@ -58,12 +65,16 @@ class JobDetailScreen extends StatelessWidget {
             children: const [
               Text(
                 "Filter Cleaning",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
               SizedBox(height: 4),
               Text(
                 "Tomorrow • 10:00 AM",
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+                style: TextStyle(color: Colors.white70, fontSize: 12),
               ),
             ],
           ),
@@ -79,15 +90,22 @@ class JobDetailScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Column(
         children: [
           _infoRow(Icons.location_on, "Address", "123 Oak Street, Apt 4B"),
-          SizedBox(height: 10.h),
+          SizedBox(height: 12.h),
           _infoRow(Icons.attach_money, "Payment", "\$35"),
-          SizedBox(height: 10.h),
+          SizedBox(height: 12.h),
           _infoRow(Icons.social_distance, "Distance", "1.8 km"),
-          SizedBox(height: 10.h),
+          SizedBox(height: 12.h),
           _infoRow(
             Icons.notes,
             "Description",
@@ -102,22 +120,23 @@ class JobDetailScreen extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 18, color: Colors.grey),
-        SizedBox(width: 8.w),
+        Icon(icon, size: 20, color: Colors.grey.shade600),
+        SizedBox(width: 10.w),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                style: TextStyle(fontSize: 12.sp, color: Colors.grey.shade600),
               ),
-              SizedBox(height: 2),
+              SizedBox(height: 2.h),
               Text(
                 value,
-                style: const TextStyle(
-                  fontSize: 14,
+                style: TextStyle(
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
+                  color: Colors.black87,
                 ),
               ),
             ],
@@ -134,10 +153,21 @@ class JobDetailScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Row(
         children: [
-          const CircleAvatar(radius: 24, child: Icon(Icons.person)),
+          CircleAvatar(
+            radius: 26,
+            backgroundColor: Colors.green.withOpacity(0.2),
+            child: const Icon(Icons.person, color: Colors.green),
+          ),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(
@@ -145,7 +175,7 @@ class JobDetailScreen extends StatelessWidget {
               children: const [
                 Text(
                   "Emily Chen",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
                 Text(
                   "Customer",
@@ -154,9 +184,18 @@ class JobDetailScreen extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
+          ElevatedButton.icon(
             onPressed: () {},
-            icon: const Icon(Icons.chat, color: Color(0xff19A74A)),
+            icon: const Icon(Icons.chat, size: 16),
+            label: const Text("Chat"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xff19A74A),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              textStyle: const TextStyle(fontSize: 12),
+            ),
           ),
         ],
       ),

@@ -19,7 +19,7 @@ class PaymentMethodStep extends StatelessWidget {
         children: [
           Text(
             "Payment Method",
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 16.h),
 
@@ -29,36 +29,50 @@ class PaymentMethodStep extends StatelessWidget {
               itemBuilder: (context, index) {
                 final item = controller.paymentMethods[index];
 
-                /// 🔑 EACH ITEM has its own Obx
+                /// 🔑 EACH ITEM has its own Obx for selection
                 return Obx(() {
                   final isSelected =
                       controller.selectedPaymentIndex.value == index;
 
                   return GestureDetector(
                     onTap: () => controller.selectPaymentMethod(index),
-                    child: Container(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeInOut,
                       margin: EdgeInsets.only(bottom: 12.h),
-                      padding: EdgeInsets.all(14.w),
+                      padding: EdgeInsets.all(16.w),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(16),
                         border: Border.all(
                           color: isSelected
                               ? const Color(0xff4285F4)
                               : Colors.grey.shade300,
-                          width: 1.5,
+                          width: isSelected ? 2 : 1.2,
                         ),
+                        color: isSelected
+                            ? (item["color"] as Color).withOpacity(0.1)
+                            : Colors.white,
+                        boxShadow: [
+                          if (isSelected)
+                            BoxShadow(
+                              color: (item["color"] as Color).withOpacity(0.2),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                        ],
                       ),
                       child: Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.all(10.w),
+                            padding: EdgeInsets.all(12.w),
                             decoration: BoxDecoration(
-                              color: (item["color"] as Color).withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(10),
+                              color: (item["color"] as Color).withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             child: Icon(
                               item["icon"] as IconData,
                               color: item["color"] as Color,
+                              size: 24.sp,
                             ),
                           ),
                           SizedBox(width: 14.w),
@@ -70,7 +84,7 @@ class PaymentMethodStep extends StatelessWidget {
                                 Text(
                                   item["title"].toString(),
                                   style: TextStyle(
-                                    fontSize: 14.sp,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -78,19 +92,22 @@ class PaymentMethodStep extends StatelessWidget {
                                 Text(
                                   item["subtitle"].toString(),
                                   style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: Colors.grey,
+                                    fontSize: 13.sp,
+                                    color: Colors.grey[600],
                                   ),
                                 ),
                               ],
                             ),
                           ),
 
-                          if (isSelected)
-                            const Icon(
+                          AnimatedOpacity(
+                            duration: const Duration(milliseconds: 300),
+                            opacity: isSelected ? 1 : 0,
+                            child: const Icon(
                               Icons.check_circle,
                               color: Color(0xff4285F4),
                             ),
+                          ),
                         ],
                       ),
                     ),

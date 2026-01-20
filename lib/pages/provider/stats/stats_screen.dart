@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,36 +12,38 @@ class StatsScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: const Color(0xffF5F6FA),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Earnings",
+                "Performance",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 16.h),
               _performanceScoreCard(),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               _statsGrid(),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               const Text(
                 "Recent Reviews",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
               _reviewTile(
                 "Emily C.",
                 "Excellent service! Very professional and quick.",
                 2,
+                5,
               ),
               _reviewTile(
                 "David P.",
                 "Great job on the AC. Works perfectly now.",
                 3,
+                4,
               ),
-              _reviewTile("Lisa W.", "Good service, arrived on time.", 5),
-              const SizedBox(height: 16),
+              _reviewTile("Lisa W.", "Good service, arrived on time.", 5, 5),
+              SizedBox(height: 16.h),
               _successMessage(),
             ],
           ),
@@ -51,20 +55,32 @@ class StatsScreen extends StatelessWidget {
   Widget _performanceScoreCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(24.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         gradient: const LinearGradient(
           colors: [Color(0xff4C8BF5), Color(0xff3B6EEA)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.12),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Column(
-        children: const [
-          Icon(Icons.workspace_premium, color: Colors.white, size: 36),
-          SizedBox(height: 8),
-          Text("Performance Score", style: TextStyle(color: Colors.white70)),
-          SizedBox(height: 8),
-          Text(
+        children: [
+          const Icon(Icons.workspace_premium, color: Colors.white, size: 36),
+          SizedBox(height: 8.h),
+          const Text(
+            "Performance Score",
+            style: TextStyle(color: Colors.white70),
+          ),
+          SizedBox(height: 8.h),
+          const Text(
             "96",
             style: TextStyle(
               color: Colors.white,
@@ -72,8 +88,11 @@ class StatsScreen extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 4),
-          Text("+3 from last month", style: TextStyle(color: Colors.white70)),
+          SizedBox(height: 4.h),
+          const Text(
+            "+3 from last month",
+            style: TextStyle(color: Colors.white70),
+          ),
         ],
       ),
     );
@@ -82,8 +101,8 @@ class StatsScreen extends StatelessWidget {
   Widget _statsGrid() {
     return GridView.count(
       crossAxisCount: 2,
-      crossAxisSpacing: 12,
-      mainAxisSpacing: 12,
+      crossAxisSpacing: 12.w,
+      mainAxisSpacing: 12.h,
       childAspectRatio: 1.2,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -106,13 +125,20 @@ class StatsScreen extends StatelessWidget {
     );
   }
 
-  Widget _reviewTile(String name, String review, int daysAgo) {
+  Widget _reviewTile(String name, String review, int daysAgo, int stars) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +147,7 @@ class StatsScreen extends StatelessWidget {
             backgroundColor: Colors.grey.shade300,
             child: Text(name[0]),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,7 +161,7 @@ class StatsScreen extends StatelessWidget {
                     const Spacer(),
                     Row(
                       children: List.generate(
-                        5,
+                        stars,
                         (index) => const Icon(
                           Icons.star,
                           size: 16,
@@ -145,12 +171,12 @@ class StatsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 6),
-                Text(review),
-                const SizedBox(height: 4),
+                SizedBox(height: 6.h),
+                Text(review, style: const TextStyle(fontSize: 13)),
+                SizedBox(height: 4.h),
                 Text(
                   "$daysAgo days ago",
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
                 ),
               ],
             ),
@@ -162,19 +188,26 @@ class StatsScreen extends StatelessWidget {
 
   Widget _successMessage() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: const Color(0xffE6F4EA),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.green.withOpacity(0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
-        children: const [
-          Icon(Icons.emoji_events, color: Colors.green),
-          SizedBox(width: 12),
+        children: [
+          const Icon(Icons.emoji_events, color: Colors.green),
+          SizedBox(width: 12.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 Text(
                   "Great Job!",
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -182,6 +215,7 @@ class StatsScreen extends StatelessWidget {
                 SizedBox(height: 4),
                 Text(
                   "You're in the top 5% of providers this month.\nKeep up the excellent work!",
+                  style: TextStyle(fontSize: 13),
                 ),
               ],
             ),
@@ -203,10 +237,17 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,7 +258,7 @@ class _StatCard extends StatelessWidget {
             value,
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
-          Text(label, style: const TextStyle(color: Colors.grey)),
+          Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
         ],
       ),
     );

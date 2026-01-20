@@ -23,202 +23,214 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: 70.h),
-        margin: EdgeInsets.symmetric(horizontal: 20.w),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Hello There!',
-                style: appFont(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 24,
-                  color: Colors.black,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            /// 🔹 Header Section
+            Container(
+              width: double.infinity,
+              height: 240.h,
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColor.primaryColor,
+                    AppColor.primaryColor.withOpacity(0.85),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30.r),
+                  bottomRight: Radius.circular(30.r),
                 ),
               ),
-              Text(
-                'Create an account to get started.',
-                style: appFont(
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondaryTextColor,
-                ),
-              ),
-              20.verticalSpace,
-              AppInput(
-                label: 'Full Name',
-                placeHolder: 'Enter your full name',
-                horizontalMargin: 0,
-                // controller: sc.fullnameController.value,
-                // validator: (email) => nameValidator(email!),
-                // inputFormatters: [
-                //   TitleCaseFormatter(),
-                //   FilteringTextInputFormatter.allow(
-                //     RegexClass.allowAlphabetsOnly,
-                //   ),
-                // ],
-              ),
-              AppInput(
-                label: 'Email Address',
-                placeHolder: 'Enter your email address',
-                horizontalMargin: 0,
-                // controller: sc.emailController.value,
-                // validator: (email) => emailValidator(email!),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              AppInput(
-                label: 'Phone Number',
-                placeHolder: 'Enter your phone number',
-                horizontalMargin: 0,
-                // controller: sc.phoneController.value,
-                // validator: (email) => phoneValidator(email!),
-                keyboardType: TextInputType.number,
-              ),
-              // Obx(
-              //   () =>
-              AppInput(
-                label: 'Password',
-                placeHolder: 'Enter your password',
-                horizontalMargin: 0,
-                showPasswordIcon: true,
-                // obscureText: sc.showPassword.value,
-                // onTap: sc.toggleShowPassword,
-                // controller: sc.passwordController.value,
-                // validator: (password) => passwordValidator(password.toString()),
-              ),
-              // ),
-              // Obx(
-              //   () =>
-              AppInput(
-                label: 'Confirm Password',
-                placeHolder: 'Enter your password',
-                horizontalMargin: 0,
-                showPasswordIcon: true,
-                // obscureText: sc.showConfirmPassword.value,
-                // onTap: sc.toggleShowConfirmPassword,
-                // controller: sc.confirmPasswordController.value,
-                // validator: (password) => passwordValidator(
-                //   password.toString(),
-                //   password2: sc.passwordController.value.text,
-                // ),
-                // ),
-              ),
-              Text(
-                'Select Role',
-                style: appFont(fontWeight: FontWeight.w600, fontSize: 14),
-              ),
-              12.verticalSpace,
-
-              Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _roleCard(
-                    title: 'Customer',
-                    icon: Icons.person,
-                    value: 'customer',
+                  Text(
+                    'Create Account ✨',
+                    style: appFont(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
-                  12.horizontalSpace,
-                  _roleCard(
-                    title: 'Service Provider',
-                    icon: Icons.handyman,
-                    value: 'provider',
+                  8.verticalSpace,
+                  Text(
+                    'Join Fix Master and get started',
+                    style: appFont(color: Colors.white.withOpacity(0.9)),
                   ),
                 ],
               ),
-              20.verticalSpace,
+            ),
 
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'By signing up, you agree to our ',
-                      style: appFont(fontWeight: FontWeight.w500),
+            /// 🔹 Signup Card
+            Transform.translate(
+              offset: Offset(0, -40),
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.all(20.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.08),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
                     ),
-                    TextSpan(
-                      text: 'Terms and Conditions ',
-                      style: appFont(
-                        color: AppColor.primaryColor,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.underline,
-                        decorationColor: AppColor.primaryColor,
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppInput(
+                      label: 'Full Name',
+                      placeHolder: 'Enter your full name',
+                      horizontalMargin: 0,
+                      prefixIcon: Icon(Icons.person_outline),
+                    ),
+                    AppInput(
+                      label: 'Email Address',
+                      placeHolder: 'Enter your email',
+                      horizontalMargin: 0,
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: Icon(Icons.email_outlined),
+                    ),
+                    AppInput(
+                      label: 'Phone Number',
+                      placeHolder: 'Enter your phone number',
+                      horizontalMargin: 0,
+                      keyboardType: TextInputType.phone,
+                      prefixIcon: Icon(Icons.phone_outlined),
+                    ),
+                    AppInput(
+                      label: 'Password',
+                      placeHolder: 'Enter your password',
+                      horizontalMargin: 0,
+                      showPasswordIcon: true,
+                      prefixIcon: Icon(Icons.lock_outline),
+                    ),
+                    AppInput(
+                      label: 'Confirm Password',
+                      placeHolder: 'Re-enter password',
+                      horizontalMargin: 0,
+                      showPasswordIcon: true,
+                      prefixIcon: Icon(Icons.lock_outline),
+                    ),
+
+                    16.verticalSpace,
+
+                    Text(
+                      'Select Role',
+                      style: appFont(fontWeight: FontWeight.w600, fontSize: 14),
+                    ),
+                    12.verticalSpace,
+
+                    Row(
+                      children: [
+                        _roleCard(
+                          title: 'Customer',
+                          icon: Icons.person,
+                          value: 'customer',
+                        ),
+                        12.horizontalSpace,
+                        _roleCard(
+                          title: 'Service Provider',
+                          icon: Icons.handyman,
+                          value: 'provider',
+                        ),
+                      ],
+                    ),
+
+                    16.verticalSpace,
+
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'By signing up, you agree to our ',
+                            style: appFont(fontWeight: FontWeight.w500),
+                          ),
+                          TextSpan(
+                            text: 'Terms & Conditions ',
+                            style: appFont(
+                              color: AppColor.primaryColor,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'and ',
+                            style: appFont(fontWeight: FontWeight.w500),
+                          ),
+                          TextSpan(
+                            text: 'Privacy Policy.',
+                            style: appFont(
+                              color: AppColor.primaryColor,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    TextSpan(
-                      text: 'and ',
-                      style: appFont(fontWeight: FontWeight.w500),
+
+                    20.verticalSpace,
+
+                    AppButton(
+                      text: 'Sign up',
+                      horizontalMargin: 0,
+                      onPress: () {
+                        if (selectedRole == 'customer') {
+                          Get.offAll(() => const CustomerBottomNav());
+                        } else {
+                          Get.offAll(() => const ProviderBottomNav());
+                        }
+                      },
                     ),
-                    TextSpan(
-                      text: 'Privacy Policy.',
-                      style: appFont(
-                        color: AppColor.primaryColor,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.underline,
-                        decorationColor: AppColor.primaryColor,
+
+                    25.verticalSpace,
+
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Center(
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Already have an account? ',
+                                style: appFont(
+                                  color: AppColor.secondaryTextColor,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Login',
+                                style: appFont(
+                                  color: AppColor.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              20.verticalSpace,
-              AppButton(
-                text: 'Sign up',
-                horizontalMargin: 0,
-                onPress: () async {
-                  if (selectedRole == 'customer') {
-                    Get.offAll(() => const CustomerBottomNav());
-                  } else {
-                    Get.offAll(() => const ProviderBottomNav());
-                  }
-                  // await sc.onSignup();
-                },
-              ),
-              20.verticalSpace,
-              Center(
-                child: Text(
-                  'Or continue with',
-                  style: appFont(
-                    fontWeight: FontWeight.w500,
-                    color: AppColor.secondaryTextColor,
-                  ),
-                ),
-              ),
-              20.verticalSpace,
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Text.rich(
-                    textAlign: TextAlign.center,
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Already have an account? ',
-                          style: appFont(
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.secondaryTextColor,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'Login',
-                          style: appFont(
-                            color: AppColor.primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              20.verticalSpace,
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
+  /// 🔹 Role Card
   Widget _roleCard({
     required String title,
     required IconData icon,
@@ -228,16 +240,13 @@ class _SignupScreenState extends State<SignupScreen> {
 
     return Expanded(
       child: GestureDetector(
-        onTap: () {
-          setState(() {
-            selectedRole = value;
-          });
-        },
-        child: Container(
+        onTap: () => setState(() => selectedRole = value),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
           padding: EdgeInsets.symmetric(vertical: 14.h),
           decoration: BoxDecoration(
             color: isSelected
-                ? AppColor.primaryColor.withOpacity(0.1)
+                ? AppColor.primaryColor.withOpacity(0.12)
                 : Colors.white,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
@@ -249,6 +258,7 @@ class _SignupScreenState extends State<SignupScreen> {
             children: [
               Icon(
                 icon,
+                size: 26,
                 color: isSelected ? AppColor.primaryColor : Colors.grey,
               ),
               6.verticalSpace,

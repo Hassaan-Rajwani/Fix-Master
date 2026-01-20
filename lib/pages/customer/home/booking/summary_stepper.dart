@@ -19,16 +19,16 @@ class BookingSummaryStep extends StatelessWidget {
         children: [
           Text(
             "Booking Summary",
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 16.h),
+          SizedBox(height: 18.h),
 
           /// 🔹 Service Summary Card
           _summaryCard(),
 
-          SizedBox(height: 16.h),
+          SizedBox(height: 20.h),
 
-          /// 🔹 Price Details
+          /// 🔹 Price Details Card
           _priceDetailsCard(),
         ],
       ),
@@ -40,60 +40,56 @@ class BookingSummaryStep extends StatelessWidget {
       padding: EdgeInsets.all(16.w),
       decoration: _cardDecoration(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Service
+          /// Service Row
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(8.w),
+                padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
+                  color: Colors.blue.withOpacity(0.15),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.electrical_services,
                   color: Colors.blue,
-                  size: 20.sp,
+                  size: 22.sp,
                 ),
               ),
-              SizedBox(width: 12.w),
+              SizedBox(width: 14.w),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "New Wiring",
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
                     "Electrician",
-                    style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                    style: TextStyle(fontSize: 13.sp, color: Colors.grey[600]),
                   ),
                 ],
               ),
             ],
           ),
 
-          Divider(height: 30.h),
+          SizedBox(height: 20.h),
+          Divider(height: 1, color: Colors.grey[300]),
 
-          /// Date
+          SizedBox(height: 12.h),
           _infoRow(
             Icons.calendar_month,
             "${controller.selectedDate.value.day} "
             "${_monthName(controller.selectedDate.value.month)}, "
             "${controller.selectedDate.value.year}",
           ),
-
           SizedBox(height: 10.h),
-
-          /// Time
           _infoRow(Icons.access_time, "10:00 AM • 2-3 hrs"),
-
           SizedBox(height: 10.h),
-
-          /// Location
           Obx(() {
             final address =
                 controller.addresses[controller.selectedAddressIndex.value];
@@ -114,7 +110,9 @@ class BookingSummaryStep extends StatelessWidget {
           _priceRow("Platform Fee", 5),
           _priceRow("Discount (WELCOME20)", -10, isDiscount: true),
 
-          Divider(height: 30.h),
+          SizedBox(height: 12.h),
+          Divider(height: 1, color: Colors.grey[300]),
+          SizedBox(height: 12.h),
 
           _priceRow("Total", 75, isTotal: true),
         ],
@@ -126,10 +124,13 @@ class BookingSummaryStep extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 18.sp, color: Colors.grey),
+        Icon(icon, size: 18.sp, color: Colors.grey[600]),
         SizedBox(width: 10.w),
         Expanded(
-          child: Text(text, style: TextStyle(fontSize: 13.sp)),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 13.sp, color: Colors.grey[800]),
+          ),
         ),
       ],
     );
@@ -150,15 +151,20 @@ class BookingSummaryStep extends StatelessWidget {
             title,
             style: TextStyle(
               fontSize: isTotal ? 15.sp : 13.sp,
-              fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
+              fontWeight: isTotal ? FontWeight.bold : FontWeight.w500,
+              color: isTotal ? Colors.blue[800] : Colors.black,
             ),
           ),
           Text(
             "${amount < 0 ? "-" : ""}\$${amount.abs()}",
             style: TextStyle(
               fontSize: isTotal ? 16.sp : 13.sp,
-              fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
-              color: isDiscount ? Colors.green : Colors.black,
+              fontWeight: isTotal ? FontWeight.bold : FontWeight.w500,
+              color: isDiscount
+                  ? Colors.green
+                  : isTotal
+                  ? Colors.blue[800]
+                  : Colors.black,
             ),
           ),
         ],
@@ -169,12 +175,12 @@ class BookingSummaryStep extends StatelessWidget {
   BoxDecoration _cardDecoration() {
     return BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(14),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.05),
-          blurRadius: 10,
-          offset: const Offset(0, 4),
+          color: Colors.black.withOpacity(0.08),
+          blurRadius: 12,
+          offset: const Offset(0, 6),
         ),
       ],
     );

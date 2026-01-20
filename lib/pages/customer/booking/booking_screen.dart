@@ -5,15 +5,69 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class BookingScreen extends StatefulWidget {
-  const BookingScreen({super.key});
+class BookingController extends GetxController {
+  RxInt selectedTab = 0.obs;
 
-  @override
-  State<BookingScreen> createState() => _BookingScreenState();
+  /// Dummy data for bookings
+  final bookings = <Map<String, dynamic>>[
+    {
+      "title": "AC Servicing",
+      "name": "John Smith",
+      "date": "Jan 15, 2026",
+      "time": "10:00 AM",
+      "price": "\$85",
+      "rating": "5",
+      "status": "Completed",
+      "statusColor": Colors.green,
+      "type": 1, // Completed
+    },
+    {
+      "title": "Pipe Leak Repair",
+      "name": "Mike Johnson",
+      "date": "Jan 12, 2026",
+      "time": "2:00 PM",
+      "price": "\$65",
+      "rating": "4",
+      "status": "Completed",
+      "statusColor": Colors.green,
+      "type": 1,
+    },
+    {
+      "title": "Full Home Clean",
+      "name": "Sarah Davis",
+      "date": "Jan 18, 2026",
+      "time": "9:00 AM",
+      "price": "\$150",
+      "rating": "",
+      "status": "Upcoming",
+      "statusColor": Colors.blue,
+      "type": 0, // Upcoming
+    },
+    {
+      "title": "Leak Fix",
+      "name": "David Lee",
+      "date": "Jan 20, 2026",
+      "time": "11:00 AM",
+      "price": "\$70",
+      "rating": "",
+      "status": "Cancelled",
+      "statusColor": Colors.red,
+      "type": 2, // Cancelled
+    },
+  ].obs;
+
+  /// Get bookings for current tab
+  List<Map<String, dynamic>> get filteredBookings {
+    return bookings.where((b) => b["type"] == selectedTab.value).toList();
+  }
 }
 
-class _BookingScreenState extends State<BookingScreen> {
-  int selectedTab = 0;
+class BookingScreen extends StatelessWidget {
+  BookingScreen({super.key});
+
+  final controller = Get.put(BookingController());
+
+  final List<String> tabs = ["Upcoming", "Completed", "Cancelled"];
 
   @override
   Widget build(BuildContext context) {
@@ -35,92 +89,36 @@ class _BookingScreenState extends State<BookingScreen> {
 
             SizedBox(height: 10.h),
 
+            /// Booking List
             Expanded(
-              child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                children: [
-                  _bookingCard(
-                    title: "AC Servicing",
-                    name: "John Smith",
-                    date: "Jan 15, 2026",
-                    time: "10:00 AM",
-                    price: "\$85",
-                    rating: "5",
-                    status: "Completed",
-                    statusColor: Colors.green,
-                  ),
-                  _bookingCard(
-                    title: "Pipe Leak Repair",
-                    name: "Mike Johnson",
-                    date: "Jan 12, 2026",
-                    time: "2:00 PM",
-                    price: "\$65",
-                    rating: "4",
-                    status: "Completed",
-                    statusColor: Colors.green,
-                  ),
-                  _bookingCard(
-                    title: "Full Home Clean",
-                    name: "Sarah Davis",
-                    date: "Jan 18, 2026",
-                    time: "9:00 AM",
-                    price: "\$150",
-                    rating: "",
-                    status: "Upcoming",
-                    statusColor: Colors.blue,
-                  ),
-                  _bookingCard(
-                    title: "Full Home Clean",
-                    name: "Sarah Davis",
-                    date: "Jan 18, 2026",
-                    time: "9:00 AM",
-                    price: "\$150",
-                    rating: "",
-                    status: "Upcoming",
-                    statusColor: Colors.blue,
-                  ),
-                  _bookingCard(
-                    title: "Full Home Clean",
-                    name: "Sarah Davis",
-                    date: "Jan 18, 2026",
-                    time: "9:00 AM",
-                    price: "\$150",
-                    rating: "",
-                    status: "Upcoming",
-                    statusColor: Colors.blue,
-                  ),
-                  _bookingCard(
-                    title: "Full Home Clean",
-                    name: "Sarah Davis",
-                    date: "Jan 18, 2026",
-                    time: "9:00 AM",
-                    price: "\$150",
-                    rating: "",
-                    status: "Upcoming",
-                    statusColor: Colors.blue,
-                  ),
-                  _bookingCard(
-                    title: "Full Home Clean",
-                    name: "Sarah Davis",
-                    date: "Jan 18, 2026",
-                    time: "9:00 AM",
-                    price: "\$150",
-                    rating: "",
-                    status: "Upcoming",
-                    statusColor: Colors.blue,
-                  ),
-                  _bookingCard(
-                    title: "Full Home Clean",
-                    name: "Sarah Davis",
-                    date: "Jan 18, 2026",
-                    time: "9:00 AM",
-                    price: "\$150",
-                    rating: "",
-                    status: "Upcoming",
-                    statusColor: Colors.blue,
-                  ),
-                ],
-              ),
+              child: Obx(() {
+                final bookings = controller.filteredBookings;
+                if (bookings.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No bookings yet",
+                      style: TextStyle(color: Colors.grey, fontSize: 14.sp),
+                    ),
+                  );
+                }
+                return ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  itemCount: bookings.length,
+                  itemBuilder: (_, index) {
+                    final b = bookings[index];
+                    return _bookingCard(
+                      title: b["title"],
+                      name: b["name"],
+                      date: b["date"],
+                      time: b["time"],
+                      price: b["price"],
+                      rating: b["rating"],
+                      status: b["status"],
+                      statusColor: b["statusColor"],
+                    );
+                  },
+                );
+              }),
             ),
           ],
         ),
@@ -132,37 +130,36 @@ class _BookingScreenState extends State<BookingScreen> {
   Widget _tabs() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Row(
-        children: [
-          _tabItem("Upcoming", 0),
-          _tabItem("Completed", 1),
-          _tabItem("Cancelled", 2),
-        ],
-      ),
-    );
-  }
-
-  Widget _tabItem(String title, int index) {
-    bool isSelected = selectedTab == index;
-    return Padding(
-      padding: EdgeInsets.only(right: 10.w),
-      child: GestureDetector(
-        onTap: () => setState(() => selectedTab = index),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-          decoration: BoxDecoration(
-            color: isSelected ? const Color(0xff4285F4) : Colors.white,
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Text(
-            title,
-            style: TextStyle(
-              color: isSelected ? Colors.white : Colors.black,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ),
+      child: Obx(() {
+        return Row(
+          children: List.generate(tabs.length, (index) {
+            final isSelected = controller.selectedTab.value == index;
+            return Padding(
+              padding: EdgeInsets.only(right: 10.w),
+              child: GestureDetector(
+                onTap: () => controller.selectedTab.value = index,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 6.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isSelected ? const Color(0xff4285F4) : Colors.white,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Text(
+                    tabs[index],
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
+        );
+      }),
     );
   }
 
@@ -178,9 +175,7 @@ class _BookingScreenState extends State<BookingScreen> {
     required Color statusColor,
   }) {
     return GestureDetector(
-      onTap: () {
-        Get.to(() => const BookingDetailScreen());
-      },
+      onTap: () => Get.to(() => const BookingDetailScreen()),
       child: Container(
         margin: EdgeInsets.only(bottom: 16.h),
         padding: EdgeInsets.all(18.w),

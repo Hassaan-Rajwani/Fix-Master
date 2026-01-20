@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:fix_master/pages/auth/login_screen.dart';
 import 'package:fix_master/pages/customer/setting/payment_method.dart';
 import 'package:fix_master/pages/customer/setting/saved_address.dart';
@@ -6,7 +8,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
+  final Map<String, dynamic> user;
+
+  const SettingScreen({
+    super.key,
+    this.user = const {
+      "name": "Alex Johnson",
+      "email": "alex.johnson@email.com",
+      "rating": 4.9,
+      "wallet": 125.0,
+      "addresses": 3,
+      "cards": 2,
+      "notifications": true,
+      "offers": 5,
+    },
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +31,6 @@ class SettingScreen extends StatelessWidget {
       body: Column(
         children: [
           _topProfileHeader(),
-
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -24,7 +39,7 @@ class SettingScreen extends StatelessWidget {
                   _walletCard(),
                   SizedBox(height: 20.h),
                   _menuCard(),
-                  SizedBox(height: 30.h),
+                  SizedBox(height: 150.h),
                 ],
               ),
             ),
@@ -55,7 +70,6 @@ class SettingScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20.h),
-
           Row(
             children: [
               CircleAvatar(
@@ -68,29 +82,25 @@ class SettingScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 15.w),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Alex Johnson",
+                    user["name"],
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "alex.johnson@email.com",
-                    style: TextStyle(color: Colors.white70),
-                  ),
+                  Text(user["email"], style: TextStyle(color: Colors.white70)),
                   SizedBox(height: 4.h),
                   Row(
                     children: [
                       const Icon(Icons.star, color: Colors.orange, size: 16),
                       SizedBox(width: 4.w),
                       Text(
-                        "4.9 Customer Rating",
+                        "${user["rating"]} Customer Rating",
                         style: const TextStyle(color: Colors.white),
                       ),
                     ],
@@ -125,7 +135,7 @@ class SettingScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 6.h),
                 Text(
-                  "\$125.00",
+                  "\$${user["wallet"].toStringAsFixed(2)}",
                   style: TextStyle(
                     fontSize: 26.sp,
                     fontWeight: FontWeight.bold,
@@ -153,19 +163,44 @@ class SettingScreen extends StatelessWidget {
 
   /// 📋 Menu List
   Widget _menuCard() {
+    final List<Map<String, dynamic>> menuItems = [
+      {
+        "icon": Icons.location_on,
+        "title": "Saved Addresses",
+        "subtitle": "${user["addresses"]} addresses",
+        "action": () => Get.to(() => const SavedAddressesScreen()),
+      },
+      {
+        "icon": Icons.credit_card,
+        "title": "Payment Methods",
+        "subtitle": "${user["cards"]} cards",
+        "action": () => Get.to(() => const PaymentMethodsScreen()),
+      },
+      {
+        "icon": Icons.notifications,
+        "title": "Notifications",
+        "subtitle": user["notifications"] ? "On" : "Off",
+      },
+      {
+        "icon": Icons.card_giftcard,
+        "title": "Rewards & Offers",
+        "subtitle": "${user["offers"]} available",
+      },
+      {"icon": Icons.help_outline, "title": "Help & Support", "subtitle": ""},
+    ];
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         children: [
-          _menuItem(Icons.location_on, "Saved Addresses", "3 addresses", () {
-            Get.to(() => const SavedAddressesScreen());
-          }),
-          _menuItem(Icons.credit_card, "Payment Methods", "2 cards", () {
-            Get.to(() => const PaymentMethodsScreen());
-          }),
-          _menuItem(Icons.notifications, "Notifications", "On"),
-          _menuItem(Icons.card_giftcard, "Rewards & Offers", "5 available"),
-          _menuItem(Icons.help_outline, "Help & Support", ""),
+          ...menuItems.map(
+            (item) => _menuItem(
+              item["icon"],
+              item["title"],
+              item["subtitle"],
+              item["action"],
+            ),
+          ),
           const SizedBox(height: 24),
 
           /// SIGN OUT
@@ -182,11 +217,12 @@ class SettingScreen extends StatelessWidget {
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xffFDECEC),
-                elevation: 0,
-                padding: const EdgeInsets.symmetric(vertical: 14),
+                elevation: 4,
+                padding: EdgeInsets.symmetric(vertical: 14.h),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
+                shadowColor: Colors.red.withOpacity(0.2),
               ),
             ),
           ),
@@ -217,24 +253,25 @@ class SettingScreen extends StatelessWidget {
               child: Icon(icon, color: const Color(0xff4285F4)),
             ),
             SizedBox(width: 14.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15.sp,
-                  ),
-                ),
-                if (subtitle.isNotEmpty)
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    subtitle,
-                    style: TextStyle(color: Colors.grey, fontSize: 13.sp),
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15.sp,
+                    ),
                   ),
-              ],
+                  if (subtitle.isNotEmpty)
+                    Text(
+                      subtitle,
+                      style: TextStyle(color: Colors.grey, fontSize: 13.sp),
+                    ),
+                ],
+              ),
             ),
-            const Spacer(),
             const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
           ],
         ),

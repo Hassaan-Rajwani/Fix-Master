@@ -1,8 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:fix_master/pages/auth/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:fix_master/pages/auth/login_screen.dart';
 
 class ProviderSettingScreen extends StatelessWidget {
   const ProviderSettingScreen({super.key});
@@ -16,7 +17,7 @@ class ProviderSettingScreen extends StatelessWidget {
           _header(),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -25,7 +26,7 @@ class ProviderSettingScreen extends StatelessWidget {
                     "Documents",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   _documentTile(
                     icon: Icons.shield_outlined,
                     title: "ID Verification",
@@ -45,17 +46,17 @@ class ProviderSettingScreen extends StatelessWidget {
                     statusColor: Colors.orange,
                   ),
 
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
 
                   /// SERVICE AREAS
                   const Text(
                     "Service Areas",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+                    spacing: 8.w,
+                    runSpacing: 8.h,
                     children: const [
                       _AreaChip("Downtown"),
                       _AreaChip("Midtown"),
@@ -65,7 +66,7 @@ class ProviderSettingScreen extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
 
                   /// ADD MORE AREAS
                   TextButton.icon(
@@ -77,7 +78,7 @@ class ProviderSettingScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
 
                   /// SETTINGS TILES
                   _settingTile(
@@ -91,7 +92,7 @@ class ProviderSettingScreen extends StatelessWidget {
                     onTap: () {},
                   ),
 
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
 
                   /// SIGN OUT
                   SizedBox(
@@ -107,14 +108,16 @@ class ProviderSettingScreen extends StatelessWidget {
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xffFDECEC),
-                        elevation: 0,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        elevation: 4,
+                        padding: EdgeInsets.symmetric(vertical: 14.h),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
+                        shadowColor: Colors.red.withOpacity(0.2),
                       ),
                     ),
                   ),
+                  150.verticalSpace,
                 ],
               ),
             ),
@@ -128,26 +131,37 @@ class ProviderSettingScreen extends StatelessWidget {
   Widget _header() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 48, 16, 24),
-      decoration: const BoxDecoration(
-        color: Color(0xff1BA94C),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(24),
-          bottomRight: Radius.circular(24),
+      padding: EdgeInsets.fromLTRB(16.w, 70.h, 16.w, 24.h),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xff1BA94C), Color(0xff14A44D)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(24.r),
+          bottomRight: Radius.circular(24.r),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Row(
         children: [
-          const CircleAvatar(
-            radius: 28,
+          CircleAvatar(
+            radius: 28.r,
             backgroundColor: Colors.white,
-            child: Icon(Icons.person, size: 32, color: Colors.black),
+            child: Icon(Icons.person, size: 32.sp, color: Colors.black),
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: 16.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "John Smith",
                 style: TextStyle(
                   color: Colors.white,
@@ -155,14 +169,14 @@ class ProviderSettingScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 4),
-              Text(
+              SizedBox(height: 4.h),
+              const Text(
                 "AC Service Expert",
                 style: TextStyle(color: Colors.white70),
               ),
-              SizedBox(height: 4),
+              SizedBox(height: 4.h),
               Row(
-                children: [
+                children: const [
                   Icon(Icons.verified, color: Colors.white, size: 16),
                   SizedBox(width: 4),
                   Text(
@@ -186,23 +200,30 @@ class ProviderSettingScreen extends StatelessWidget {
     required Color statusColor,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8.w),
             decoration: BoxDecoration(
               color: statusColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(8.r),
             ),
             child: Icon(icon, color: statusColor),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12.w),
           Expanded(
             child: Text(
               title,
@@ -210,16 +231,16 @@ class ProviderSettingScreen extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
             decoration: BoxDecoration(
               color: statusColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
             ),
             child: Text(
               status,
               style: TextStyle(
                 color: statusColor,
-                fontSize: 12,
+                fontSize: 12.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -236,10 +257,17 @@ class ProviderSettingScreen extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: 12.h),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: ListTile(
         leading: Icon(icon),
@@ -261,6 +289,7 @@ class _AreaChip extends StatelessWidget {
       label: Text(title),
       backgroundColor: const Color(0xffEAF2FF),
       labelStyle: const TextStyle(color: Color(0xff3B6EEA)),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
     );
   }
 }

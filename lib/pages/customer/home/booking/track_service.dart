@@ -1,12 +1,53 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:async';
+
 import 'package:fix_master/pages/customer/home/booking/review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class TrackServiceScreen extends StatelessWidget {
+class TrackServiceScreen extends StatefulWidget {
   const TrackServiceScreen({super.key});
+
+  @override
+  State<TrackServiceScreen> createState() => _TrackServiceScreenState();
+}
+
+class _TrackServiceScreenState extends State<TrackServiceScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _pulseController;
+  late Animation<double> _pulseAnimation;
+  int countdown = 12; // example countdown in minutes
+
+  @override
+  void initState() {
+    super.initState();
+
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat(reverse: true);
+
+    _pulseAnimation = Tween<double>(begin: 0.9, end: 1.1).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+
+    // countdown simulation
+    Timer.periodic(const Duration(seconds: 60), (timer) {
+      if (countdown > 0) {
+        setState(() => countdown--);
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _pulseController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +56,53 @@ class TrackServiceScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            /// 🗺 Map Placeholder
+            /// 🗺 Map Placeholder with gradient overlay
             Expanded(
-              child: Container(
-                color: Colors.blue.withOpacity(0.08),
+              child: Stack(
                 alignment: Alignment.center,
-                child: const Icon(
-                  Icons.navigation,
-                  size: 40,
-                  color: Color(0xff4285F4),
-                ),
+                children: [
+                  Container(color: Colors.blue.withOpacity(0.08)),
+                  const Icon(
+                    Icons.navigation,
+                    size: 40,
+                    color: Color(0xff4285F4),
+                  ),
+                  Positioned(
+                    bottom: 40.h,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 6.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 6,
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.local_shipping,
+                            color: Color(0xff4285F4),
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            "Provider is $countdown min away",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
@@ -44,8 +122,11 @@ class TrackServiceScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  /// Arriving Card
-                  _arrivalCard(),
+                  /// Arriving Card with pulse
+                  ScaleTransition(
+                    scale: _pulseAnimation,
+                    child: _arrivalCard(),
+                  ),
 
                   SizedBox(height: 16.h),
 
@@ -67,6 +148,7 @@ class TrackServiceScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
+                        elevation: 4,
                       ),
                       child: const Text(
                         "Complete & Rate",
@@ -83,7 +165,7 @@ class TrackServiceScreen extends StatelessWidget {
     );
   }
 
-  /// ⏱ Arrival Info
+  /// ⏱ Arrival Info Card
   Widget _arrivalCard() {
     return Container(
       padding: EdgeInsets.all(14.w),
@@ -106,7 +188,7 @@ class TrackServiceScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  "12 min",
+                  "$countdown min",
                   style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
@@ -126,7 +208,7 @@ class TrackServiceScreen extends StatelessWidget {
     );
   }
 
-  /// 👨‍🔧 Provider Details
+  /// 👨‍🔧 Provider Card
   Widget _providerCard() {
     return Container(
       padding: EdgeInsets.all(16.w),
@@ -181,12 +263,16 @@ class TrackServiceScreen extends StatelessWidget {
 
           SizedBox(height: 16.h),
 
-          /// Status Timeline
-          _statusRow("Booking confirmed", true, "10:00 AM"),
-          _statusRow("Provider assigned", true, "10:05 AM"),
-          _statusRow("On the way", true, "10:15 AM"),
-          _statusRow("Arrived", false, ""),
-          _statusRow("Job completed", false, ""),
+          /// Status Timeline with vertical progress indicator
+          Column(
+            children: [
+              _statusRow("Booking confirmed", true, "10:00 AM"),
+              _statusRow("Provider assigned", true, "10:05 AM"),
+              _statusRow("On the way", true, "10:15 AM"),
+              _statusRow("Arrived", false, ""),
+              _statusRow("Job completed", false, ""),
+            ],
+          ),
         ],
       ),
     );

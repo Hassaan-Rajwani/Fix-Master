@@ -4,10 +4,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BookingDetailScreen extends StatelessWidget {
-  const BookingDetailScreen({super.key});
+  final Map<String, dynamic> booking;
+
+  const BookingDetailScreen({
+    super.key,
+    this.booking = const {
+      "title": "AC Servicing",
+      "id": "#FM2024015",
+      "status": "Completed",
+      "statusType": 1,
+      "serviceFee": "\$80",
+      "tax": "\$5",
+      "total": "\$85",
+      "provider": "John Smith",
+      "providerRating": "4.9",
+      "providerJobs": 523,
+      "date": "Jan 15, 2026",
+      "time": "10:00 AM",
+    },
+  });
 
   @override
   Widget build(BuildContext context) {
+    final status = booking["status"] as String;
+    final statusType = booking["statusType"] as int;
+
+    Color statusColor() {
+      switch (statusType) {
+        case 0:
+          return Colors.blue;
+        case 1:
+          return Colors.green;
+        case 2:
+          return Colors.red;
+        default:
+          return Colors.grey;
+      }
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
       appBar: AppBar(
@@ -29,7 +63,7 @@ class BookingDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// Status Card
-            _statusCard(),
+            _statusCard(status, statusColor()),
 
             SizedBox(height: 16.h),
 
@@ -38,9 +72,9 @@ class BookingDetailScreen extends StatelessWidget {
               title: "Service Information",
               child: Column(
                 children: [
-                  _infoRow("Service", "AC Servicing"),
-                  _infoRow("Booking ID", "#FM2024015"),
-                  _infoRow("Status", "Completed", valueColor: Colors.green),
+                  _infoRow("Service", booking["title"]),
+                  _infoRow("Booking ID", booking["id"]),
+                  _infoRow("Status", status, valueColor: statusColor()),
                 ],
               ),
             ),
@@ -62,7 +96,7 @@ class BookingDetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "John Smith",
+                        booking["provider"],
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
@@ -70,10 +104,16 @@ class BookingDetailScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 4.h),
                       Row(
-                        children: const [
-                          Icon(Icons.star, size: 14, color: Colors.orange),
-                          SizedBox(width: 4),
-                          Text("4.9 (523 jobs)"),
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            size: 14,
+                            color: Colors.orange,
+                          ),
+                          SizedBox(width: 4.w),
+                          Text(
+                            "${booking["providerRating"]} (${booking["providerJobs"]} jobs)",
+                          ),
                         ],
                       ),
                     ],
@@ -89,8 +129,8 @@ class BookingDetailScreen extends StatelessWidget {
               title: "Schedule",
               child: Column(
                 children: [
-                  _infoRow("Date", "Jan 15, 2026"),
-                  _infoRow("Time", "10:00 AM"),
+                  _infoRow("Date", booking["date"]),
+                  _infoRow("Time", booking["time"]),
                 ],
               ),
             ),
@@ -102,36 +142,15 @@ class BookingDetailScreen extends StatelessWidget {
               title: "Payment",
               child: Column(
                 children: [
-                  _infoRow("Service Fee", "\$80"),
-                  _infoRow("Tax", "\$5"),
+                  _infoRow("Service Fee", booking["serviceFee"]),
+                  _infoRow("Tax", booking["tax"]),
                   const Divider(),
-                  _infoRow("Total", "\$85", isBold: true),
+                  _infoRow("Total", booking["total"], isBold: true),
                 ],
               ),
             ),
 
             SizedBox(height: 30.h),
-
-            /// Button (for upcoming booking)
-            SizedBox(
-              width: double.infinity,
-              height: 52.h,
-              child: ElevatedButton(
-                onPressed: () {
-                  /// Cancel / Track / Rebook logic
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff4285F4),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                child: const Text(
-                  "Track Service",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -139,11 +158,11 @@ class BookingDetailScreen extends StatelessWidget {
   }
 
   /// 🔵 Status Card
-  Widget _statusCard() {
+  Widget _statusCard(String status, Color color) {
     return Container(
       padding: EdgeInsets.all(18.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: color.withOpacity(0.15),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -152,17 +171,20 @@ class BookingDetailScreen extends StatelessWidget {
             height: 46,
             width: 46,
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.15),
+              color: color.withOpacity(0.15),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.check, color: Colors.green),
+            child: Icon(
+              status == "Completed" ? Icons.check : Icons.info,
+              color: color,
+            ),
           ),
           SizedBox(width: 12.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Service Completed",
+                status,
                 style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 4.h),

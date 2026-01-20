@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -67,7 +69,10 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
       appBar: AppBar(
-        title: const Text("Earnings History"),
+        title: const Text(
+          "Earnings History",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: const Color(0xff14A44D),
@@ -85,7 +90,7 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
                   ? const Center(
                       child: Text(
                         "No records found",
-                        style: TextStyle(color: Colors.grey),
+                        style: TextStyle(color: Colors.grey, fontSize: 14),
                       ),
                     )
                   : ListView.builder(
@@ -93,7 +98,7 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
                       itemBuilder: (context, index) {
                         final item = filteredHistory[index];
                         return Padding(
-                          padding: EdgeInsets.only(bottom: 10.h),
+                          padding: EdgeInsets.only(bottom: 12.h),
                           child: _historyItem(
                             title: item["title"],
                             name: item["name"],
@@ -110,7 +115,7 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
     );
   }
 
-  // ================= FILTER =================
+  // ================= FILTER CHIPS =================
   Widget _filterRow() {
     return Row(
       children: [
@@ -132,21 +137,31 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
           selectedFilter = title;
         });
       },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: isActive ? const Color(0xff14A44D) : Colors.white,
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
             color: isActive ? const Color(0xff14A44D) : Colors.grey.shade300,
           ),
+          boxShadow: isActive
+              ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ]
+              : [],
         ),
         child: Text(
           title,
           style: TextStyle(
             fontSize: 12,
-            color: isActive ? Colors.white : Colors.grey,
             fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+            color: isActive ? Colors.white : Colors.grey.shade700,
           ),
         ),
       ),
@@ -165,12 +180,19 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         children: [
           CircleAvatar(
             radius: 20,
-            backgroundColor: const Color(0xff14A44D).withOpacity(0.1),
+            backgroundColor: const Color(0xff14A44D).withOpacity(0.15),
             child: const Icon(Icons.attach_money, color: Color(0xff14A44D)),
           ),
           SizedBox(width: 12.w),
@@ -197,6 +219,7 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xff14A44D),
+                  fontSize: 14,
                 ),
               ),
               Text(

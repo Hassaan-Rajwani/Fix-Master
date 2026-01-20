@@ -41,7 +41,7 @@ class AddNewAddressScreen extends StatelessWidget {
               hint: "Home / Office",
               controller: titleCtrl,
             ),
-            SizedBox(height: 14.h),
+            SizedBox(height: 16.h),
 
             _inputField(
               label: "Full Address",
@@ -49,7 +49,7 @@ class AddNewAddressScreen extends StatelessWidget {
               controller: addressCtrl,
               maxLines: 3,
             ),
-            SizedBox(height: 14.h),
+            SizedBox(height: 16.h),
 
             _inputField(
               label: "Note (Optional)",
@@ -59,31 +59,52 @@ class AddNewAddressScreen extends StatelessWidget {
             ),
             SizedBox(height: 24.h),
 
-            /// 🗺 Map placeholder
+            /// 🗺 Map Card
             Container(
               height: 160.h,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: const Color(0xffEAF1FF),
+                gradient: const LinearGradient(
+                  colors: [Color(0xffEAF1FF), Color(0xffD4E2FF)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
                 borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.location_on,
-                    color: Color(0xff4285F4),
-                    size: 32,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 6,
+                    offset: const Offset(0, 3),
                   ),
-                  SizedBox(height: 6.h),
-                  const Text("Pick location from map"),
                 ],
+              ),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      color: Color(0xff4285F4),
+                      size: 32,
+                    ),
+                    SizedBox(height: 6.h),
+                    Text(
+                      "Pick location from map",
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
 
             SizedBox(height: 30.h),
 
-            /// Save Button
+            /// 💾 Save Button
             SizedBox(
               width: double.infinity,
               height: 52.h,
@@ -94,6 +115,7 @@ class AddNewAddressScreen extends StatelessWidget {
                       "Error",
                       "Please fill all required fields",
                       backgroundColor: Colors.red.shade100,
+                      colorText: Colors.red.shade800,
                     );
                     return;
                   }
@@ -111,8 +133,16 @@ class AddNewAddressScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
+                  shadowColor: Colors.black26,
+                  elevation: 5,
                 ),
-                child: const Text("Save Address"),
+                child: Text(
+                  "Save Address",
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ],
@@ -121,7 +151,7 @@ class AddNewAddressScreen extends StatelessWidget {
     );
   }
 
-  /// 🔤 Input Field
+  /// 🔤 Enhanced Input Field
   Widget _inputField({
     required String label,
     required String hint,
@@ -136,20 +166,38 @@ class AddNewAddressScreen extends StatelessWidget {
           style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
         ),
         SizedBox(height: 6.h),
-        TextField(
-          controller: controller,
-          maxLines: maxLines,
-          decoration: InputDecoration(
-            hintText: hint,
-            filled: true,
-            fillColor: Colors.white,
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 14.w,
-              vertical: 12.h,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide.none,
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: TextField(
+            controller: controller,
+            maxLines: maxLines,
+            decoration: InputDecoration(
+              hintText: hint,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 14.w,
+                vertical: 12.h,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: const BorderSide(
+                  color: Color(0xff4285F4),
+                  width: 1.5,
+                ),
+              ),
             ),
           ),
         ),

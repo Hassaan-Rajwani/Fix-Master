@@ -29,14 +29,19 @@ class SavedAddressesScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(child: ServiceLocationStep()),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(16.w),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: ServiceLocationStep(),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.symmetric(horizontal: 30),
+        margin: EdgeInsets.only(bottom: 30),
         child: SizedBox(
           height: 52.h,
           child: ElevatedButton(
             onPressed: () {
-              /// Save selected address
               Get.back();
             },
             style: ElevatedButton.styleFrom(

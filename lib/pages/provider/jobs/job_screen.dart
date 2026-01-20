@@ -12,30 +12,69 @@ class JobScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
-      body: SafeArea(
-        child: Column(
-          children: [
-            _header(),
-            SizedBox(height: 16.h),
-            _newJobCard(),
-            SizedBox(height: 20.h),
-            _upcomingJobs(),
-          ],
-        ),
+      body: Column(
+        children: [
+          // ================= HEADER =================
+          _header(),
+          // ================= BODY =================
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await Future.delayed(const Duration(seconds: 1));
+              },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: EdgeInsets.only(top: 16.h, bottom: 20.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _newJobCard(),
+                    SizedBox(height: 20.h),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Text(
+                        "Upcoming Jobs",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    _upcomingJobs(),
+                    _upcomingJobs(),
+                    _upcomingJobs(),
+                    _upcomingJobs(),
+                    _upcomingJobs(),
+                    _upcomingJobs(),
+                    150.verticalSpace,
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  // ================= HEADER =================
   Widget _header() {
     return Container(
-      padding: EdgeInsets.all(20.w),
+      padding: EdgeInsets.fromLTRB(20, 70, 20, 20),
       decoration: BoxDecoration(
-        color: const Color(0xff19A74A),
+        gradient: const LinearGradient(
+          colors: [Color(0xff19A74A), Color(0xff17C964)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28.r),
           bottomRight: Radius.circular(28.r),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,13 +89,10 @@ class JobScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 4,
-                      backgroundColor: Colors.white,
-                    ),
-                    SizedBox(width: 6.w),
-                    const Text(
+                  children: const [
+                    CircleAvatar(radius: 4, backgroundColor: Colors.white),
+                    SizedBox(width: 6),
+                    Text(
                       "Online",
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
@@ -99,7 +135,7 @@ class JobScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               value,
@@ -112,7 +148,7 @@ class JobScreen extends StatelessWidget {
             SizedBox(height: 6.h),
             Text(
               title,
-              maxLines: 2, // ⭐ safety
+              maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(color: Colors.white70, fontSize: 12),
@@ -123,15 +159,21 @@ class JobScreen extends StatelessWidget {
     );
   }
 
-  // ================= NEW JOB CARD =================
   Widget _newJobCard() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: const Color(0xff4F7CFE)),
+        borderRadius: BorderRadius.circular(24.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
+          ),
+        ],
+        border: Border.all(color: const Color(0xff4F7CFE), width: 1.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,8 +205,8 @@ class JobScreen extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                radius: 20,
-                backgroundColor: const Color(0xff4F7CFE).withOpacity(0.1),
+                radius: 22,
+                backgroundColor: Color(0xff4F7CFE).withOpacity(0.3),
                 child: const Icon(Icons.ac_unit, color: Color(0xff4F7CFE)),
               ),
               SizedBox(width: 12.w),
@@ -174,8 +216,12 @@ class JobScreen extends StatelessWidget {
                   children: const [
                     Text(
                       "AC Servicing",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
                     ),
+                    SizedBox(height: 2),
                     Text(
                       "Emily Chen",
                       style: TextStyle(color: Colors.grey, fontSize: 12),
@@ -188,6 +234,7 @@ class JobScreen extends StatelessWidget {
                 style: TextStyle(
                   color: Color(0xff4F7CFE),
                   fontWeight: FontWeight.bold,
+                  fontSize: 14,
                 ),
               ),
             ],
@@ -214,10 +261,15 @@ class JobScreen extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: OutlinedButton.icon(
+                child: OutlinedButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.close, color: Colors.red),
-                  label: const Text(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.red),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                    ),
+                  ),
+                  child: const Text(
                     "Reject",
                     style: TextStyle(color: Colors.red),
                   ),
@@ -225,13 +277,15 @@ class JobScreen extends StatelessWidget {
               ),
               SizedBox(width: 12.w),
               Expanded(
-                child: ElevatedButton.icon(
+                child: ElevatedButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.check),
-                  label: const Text("Accept"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff19A74A),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.r),
+                    ),
                   ),
+                  child: const Text("Accept"),
                 ),
               ),
             ],
@@ -241,67 +295,59 @@ class JobScreen extends StatelessWidget {
     );
   }
 
-  // ================= UPCOMING JOBS =================
   Widget _upcomingJobs() {
     return GestureDetector(
-      onTap: () {
-        Get.to(() => const JobDetailScreen());
-      },
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Upcoming Jobs",
-              style: TextStyle(fontWeight: FontWeight.bold),
+      onTap: () => Get.to(() => const JobDetailScreen()),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        padding: EdgeInsets.all(12.w),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
-            SizedBox(height: 10.h),
-            Container(
-              padding: EdgeInsets.all(12.w),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.r),
-              ),
-              child: Row(
-                children: [
-                  const Icon(Icons.ac_unit, color: Color(0xff4F7CFE)),
-                  SizedBox(width: 10.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Filter Cleaning",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Tomorrow • 10:00 AM",
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
-                      ],
-                    ),
+          ],
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.ac_unit, color: Color(0xff4F7CFE)),
+            SizedBox(width: 10.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Filter Cleaning",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: const [
-                      Text(
-                        "\$35",
-                        style: TextStyle(
-                          color: Color(0xff4F7CFE),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "1.8 km",
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
+                  Text(
+                    "Tomorrow • 10:00 AM",
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
-                  const Icon(Icons.chevron_right),
                 ],
               ),
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: const [
+                Text(
+                  "\$35",
+                  style: TextStyle(
+                    color: Color(0xff4F7CFE),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  "1.8 km",
+                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              ],
+            ),
+            const Icon(Icons.chevron_right),
           ],
         ),
       ),
