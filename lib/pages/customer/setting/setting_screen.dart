@@ -1,5 +1,8 @@
+import 'package:fix_master/pages/customer/setting/payment_method.dart';
+import 'package:fix_master/pages/customer/setting/saved_address.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -16,7 +19,7 @@ class SettingScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 60.h),
+                  SizedBox(height: 30.h),
                   _walletCard(),
                   SizedBox(height: 20.h),
                   _menuCard(),
@@ -153,8 +156,12 @@ class SettingScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         children: [
-          _menuItem(Icons.location_on, "Saved Addresses", "3 addresses"),
-          _menuItem(Icons.credit_card, "Payment Methods", "2 cards"),
+          _menuItem(Icons.location_on, "Saved Addresses", "3 addresses", () {
+            Get.to(() => const SavedAddressesScreen());
+          }),
+          _menuItem(Icons.credit_card, "Payment Methods", "2 cards", () {
+            Get.to(() => const PaymentMethodsScreen());
+          }),
           _menuItem(Icons.notifications, "Notifications", "On"),
           _menuItem(Icons.card_giftcard, "Rewards & Offers", "5 available"),
           _menuItem(Icons.help_outline, "Help & Support", ""),
@@ -163,38 +170,49 @@ class SettingScreen extends StatelessWidget {
     );
   }
 
-  Widget _menuItem(IconData icon, String title, String subtitle) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 14.h),
-      padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor: const Color(0xffEEF3FF),
-            child: Icon(icon, color: const Color(0xff4285F4)),
-          ),
-          SizedBox(width: 14.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15.sp),
-              ),
-              if (subtitle.isNotEmpty)
+  Widget _menuItem(
+    IconData icon,
+    String title,
+    String subtitle, [
+    VoidCallback? onTap,
+  ]) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.only(bottom: 14.h),
+        padding: EdgeInsets.all(16.w),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundColor: const Color(0xffEEF3FF),
+              child: Icon(icon, color: const Color(0xff4285F4)),
+            ),
+            SizedBox(width: 14.w),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(
-                  subtitle,
-                  style: TextStyle(color: Colors.grey, fontSize: 13.sp),
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15.sp,
+                  ),
                 ),
-            ],
-          ),
-          const Spacer(),
-          const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-        ],
+                if (subtitle.isNotEmpty)
+                  Text(
+                    subtitle,
+                    style: TextStyle(color: Colors.grey, fontSize: 13.sp),
+                  ),
+              ],
+            ),
+            const Spacer(),
+            const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+          ],
+        ),
       ),
     );
   }
