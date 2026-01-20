@@ -36,6 +36,34 @@ class BookingStepperController extends GetxController {
     selectedAddressIndex.value = index;
   }
 
+  /// Step 4: Payment
+  var selectedPaymentIndex = 0.obs;
+
+  final paymentMethods = [
+    {
+      "title": "Credit/Debit Card",
+      "subtitle": "**** **** **** 4242",
+      "icon": Icons.credit_card,
+      "color": Colors.deepPurple,
+    },
+    {
+      "title": "FixMaster Wallet",
+      "subtitle": "Balance: \$125.00",
+      "icon": Icons.account_balance_wallet,
+      "color": Colors.green,
+    },
+    {
+      "title": "Cash on Service",
+      "subtitle": "Pay after completion",
+      "icon": Icons.attach_money,
+      "color": Colors.orange,
+    },
+  ];
+
+  void selectPaymentMethod(int index) {
+    selectedPaymentIndex.value = index;
+  }
+
   void nextStep() {
     currentStep.value++;
   }

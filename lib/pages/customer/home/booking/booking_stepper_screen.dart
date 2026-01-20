@@ -1,6 +1,7 @@
 import 'package:fix_master/controllers/customer/home/booking_stepper_controller.dart';
 import 'package:fix_master/pages/customer/home/booking/date_time_step.dart';
 import 'package:fix_master/pages/customer/home/booking/location_stepper.dart';
+import 'package:fix_master/pages/customer/home/booking/payment_stepper.dart';
 import 'package:fix_master/pages/customer/home/booking/summary_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,7 +41,7 @@ class BookingStepperScreen extends StatelessWidget {
                 case 2:
                   return BookingSummaryStep();
                 case 3:
-                  return const Center(child: Text("Step 4 Component"));
+                  return PaymentMethodStep();
                 default:
                   return const SizedBox();
               }
@@ -98,6 +99,8 @@ class BookingStepperScreen extends StatelessWidget {
                   ? "Confirm Location"
                   : controller.currentStep.value == 2
                   ? "Proceed to Pay"
+                  : controller.currentStep.value == 3
+                  ? "Pay \$80"
                   : "Continue",
             ),
           ),
