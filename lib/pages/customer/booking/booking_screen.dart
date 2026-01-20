@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/pages/customer/booking/booking_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({super.key});
@@ -175,90 +177,101 @@ class _BookingScreenState extends State<BookingScreen> {
     required String status,
     required Color statusColor,
   }) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 16.h),
-      padding: EdgeInsets.all(18.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /// Title + Status
-          Row(
-            children: [
-              Text(
-                title,
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-              ),
-              const Spacer(),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                decoration: BoxDecoration(
-                  color: statusColor.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  status,
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => const BookingDetailScreen());
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 16.h),
+        padding: EdgeInsets.all(18.w),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// Title + Status
+            Row(
+              children: [
+                Text(
+                  title,
                   style: TextStyle(
-                    color: statusColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12.sp,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-            ],
-          ),
-
-          SizedBox(height: 6.h),
-
-          Text("by $name", style: TextStyle(color: Colors.grey)),
-
-          SizedBox(height: 12.h),
-
-          Row(
-            children: [
-              Icon(Icons.calendar_today, size: 16, color: Colors.grey),
-              SizedBox(width: 6.w),
-              Text(date),
-              SizedBox(width: 20.w),
-              Icon(Icons.access_time, size: 16, color: Colors.grey),
-              SizedBox(width: 6.w),
-              Text(time),
-            ],
-          ),
-
-          Divider(height: 30.h),
-
-          /// Price + Rating + View Details
-          Row(
-            children: [
-              Text(
-                price,
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xff4285F4),
+                const Spacer(),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 6.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: statusColor.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    status,
+                    style: TextStyle(
+                      color: statusColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12.sp,
+                    ),
+                  ),
                 ),
-              ),
-              if (rating.isNotEmpty) ...[
-                SizedBox(width: 15.w),
-                const Icon(Icons.star, color: Colors.orange, size: 18),
-                SizedBox(width: 4.w),
-                Text(rating),
               ],
-              const Spacer(),
-              Text(
-                "View Details  >",
-                style: TextStyle(
-                  color: const Color(0xff4285F4),
-                  fontWeight: FontWeight.w600,
+            ),
+
+            SizedBox(height: 6.h),
+
+            Text("by $name", style: TextStyle(color: Colors.grey)),
+
+            SizedBox(height: 12.h),
+
+            Row(
+              children: [
+                Icon(Icons.calendar_today, size: 16, color: Colors.grey),
+                SizedBox(width: 6.w),
+                Text(date),
+                SizedBox(width: 20.w),
+                Icon(Icons.access_time, size: 16, color: Colors.grey),
+                SizedBox(width: 6.w),
+                Text(time),
+              ],
+            ),
+
+            Divider(height: 30.h),
+
+            /// Price + Rating + View Details
+            Row(
+              children: [
+                Text(
+                  price,
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff4285F4),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                if (rating.isNotEmpty) ...[
+                  SizedBox(width: 15.w),
+                  const Icon(Icons.star, color: Colors.orange, size: 18),
+                  SizedBox(width: 4.w),
+                  Text(rating),
+                ],
+                const Spacer(),
+                Text(
+                  "View Details  >",
+                  style: TextStyle(
+                    color: const Color(0xff4285F4),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
