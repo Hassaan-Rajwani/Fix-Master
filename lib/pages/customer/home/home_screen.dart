@@ -189,34 +189,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// 🛠 All Services
   Widget _allServices() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "All Services",
-            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 15.h),
-          Wrap(
-            spacing: 12.w,
-            runSpacing: 12.h,
-            alignment: WrapAlignment.spaceBetween,
-            children: [
-              _serviceItem(Icons.flash_on, "Electrician", Colors.orange),
-              _serviceItem(Icons.plumbing, "Plumber", Colors.blue),
-              _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
-              _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
-              _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
-              _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
-              _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
-              _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
-              _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "All Services",
+          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 15.h),
+        Wrap(
+          spacing: 15.w,
+          runSpacing: 12.h,
+          alignment: WrapAlignment.spaceBetween,
+          children: [
+            _serviceItem(Icons.flash_on, "Electrician", Colors.orange),
+            _serviceItem(Icons.plumbing, "Plumber", Colors.blue),
+            _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
+            _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
+            _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
+            _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
+            _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
+            _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
+            _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
+          ],
+        ),
+      ],
     );
   }
 
