@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/pages/customer/home/booking/review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class TrackServiceScreen extends StatelessWidget {
   const TrackServiceScreen({super.key});
@@ -57,7 +59,9 @@ class TrackServiceScreen extends StatelessWidget {
                     width: double.infinity,
                     height: 52.h,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(() => const ServiceCompletedScreen());
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff4285F4),
                         shape: RoundedRectangleBorder(
