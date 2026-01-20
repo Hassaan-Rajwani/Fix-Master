@@ -1,6 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/pages/auth/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProviderSettingScreen extends StatelessWidget {
   const ProviderSettingScreen({super.key});
@@ -95,7 +97,9 @@ class ProviderSettingScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.offAll(() => LoginScreen());
+                      },
                       icon: const Icon(Icons.logout, color: Colors.red),
                       label: const Text(
                         "Sign Out",

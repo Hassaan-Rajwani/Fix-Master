@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/pages/provider/jobs/job_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class JobScreen extends StatelessWidget {
   const JobScreen({super.key});
@@ -241,62 +243,67 @@ class JobScreen extends StatelessWidget {
 
   // ================= UPCOMING JOBS =================
   Widget _upcomingJobs() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Upcoming Jobs",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 10.h),
-          Container(
-            padding: EdgeInsets.all(12.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.r),
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => const JobDetailScreen());
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Upcoming Jobs",
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            child: Row(
-              children: [
-                const Icon(Icons.ac_unit, color: Color(0xff4F7CFE)),
-                SizedBox(width: 10.w),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            SizedBox(height: 10.h),
+            Container(
+              padding: EdgeInsets.all(12.w),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.ac_unit, color: Color(0xff4F7CFE)),
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Filter Cleaning",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Tomorrow • 10:00 AM",
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: const [
                       Text(
-                        "Filter Cleaning",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        "\$35",
+                        style: TextStyle(
+                          color: Color(0xff4F7CFE),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Text(
-                        "Tomorrow • 10:00 AM",
+                        "1.8 km",
                         style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                     ],
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: const [
-                    Text(
-                      "\$35",
-                      style: TextStyle(
-                        color: Color(0xff4F7CFE),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "1.8 km",
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  ],
-                ),
-                const Icon(Icons.chevron_right),
-              ],
+                  const Icon(Icons.chevron_right),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
