@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/pages/customer/home/service/service_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -218,25 +220,30 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _serviceItem(IconData icon, String title, Color color) {
-    return Container(
-      width: 100.w,
-      padding: EdgeInsets.symmetric(vertical: 20.h),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Column(
-        children: [
-          CircleAvatar(
-            backgroundColor: color,
-            child: Icon(icon, color: Colors.white),
-          ),
-          SizedBox(height: 10.h),
-          Text(
-            title,
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
-          ),
-        ],
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => const ServiceDetailScreen());
+      },
+      child: Container(
+        width: 100.w,
+        padding: EdgeInsets.symmetric(vertical: 20.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Column(
+          children: [
+            CircleAvatar(
+              backgroundColor: color,
+              child: Icon(icon, color: Colors.white),
+            ),
+            SizedBox(height: 10.h),
+            Text(
+              title,
+              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
       ),
     );
   }
