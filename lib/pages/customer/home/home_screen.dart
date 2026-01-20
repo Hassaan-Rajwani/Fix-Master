@@ -93,45 +93,50 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// 🚨 Emergency Card
   Widget _emergencyCard() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Container(
-        padding: EdgeInsets.all(18.w),
-        decoration: BoxDecoration(
-          color: const Color(0xffFFEDED),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: EdgeInsets.all(10.w),
-              decoration: const BoxDecoration(
-                color: Colors.red,
-                shape: BoxShape.circle,
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => const ServiceDetailScreen());
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Container(
+          padding: EdgeInsets.all(18.w),
+          decoration: BoxDecoration(
+            color: const Color(0xffFFEDED),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(10.w),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.warning, color: Colors.white),
               ),
-              child: const Icon(Icons.warning, color: Colors.white),
-            ),
-            SizedBox(width: 15.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Emergency Services",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
+              SizedBox(width: 15.w),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Emergency Services",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Text(
-                  "24/7 Priority Response",
-                  style: TextStyle(color: Colors.grey, fontSize: 13.sp),
-                ),
-              ],
-            ),
-            const Spacer(),
-            const Icon(Icons.arrow_forward_ios, color: Colors.red),
-          ],
+                  Text(
+                    "24/7 Priority Response",
+                    style: TextStyle(color: Colors.grey, fontSize: 13.sp),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              const Icon(Icons.arrow_forward_ios, color: Colors.red),
+            ],
+          ),
         ),
       ),
     );
