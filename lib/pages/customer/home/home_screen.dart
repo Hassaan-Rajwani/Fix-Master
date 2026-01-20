@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   _statsRow(),
                   30.verticalSpace,
                   _allServices(),
-                  30.verticalSpace,
+                  150.verticalSpace,
                 ],
               ),
             ),
@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
   /// 📊 Stats
   Widget _statsRow() {
     return SizedBox(
-      height: 120.h,
+      height: 125.h,
       child: ListView(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: 20.w),

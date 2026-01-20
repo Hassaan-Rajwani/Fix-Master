@@ -12,7 +12,7 @@ class DateTimeStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20.w),
+      padding: EdgeInsets.all(10.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -75,14 +75,14 @@ class DateTimeStep extends StatelessWidget {
     ];
 
     return Wrap(
-      spacing: 10.w,
-      runSpacing: 10.h,
+      spacing: 6.w,
+      runSpacing: 6.h,
       children: List.generate(times.length, (index) {
         return Obx(
           () => GestureDetector(
             onTap: () => controller.selectTime(index),
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
+              padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 12.w),
               decoration: BoxDecoration(
                 color: controller.selectedTimeIndex.value == index
                     ? const Color(0xff4285F4)
