@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -131,7 +133,12 @@ class ProviderSettingScreen extends StatelessWidget {
   Widget _header() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(16.w, 70.h, 16.w, 24.h),
+      padding: EdgeInsets.fromLTRB(
+        16.w,
+        Platform.isAndroid ? 50 : 70,
+        16.w,
+        24.h,
+      ),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [Color(0xff1BA94C), Color(0xff14A44D)],

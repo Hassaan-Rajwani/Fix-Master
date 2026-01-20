@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
 import 'package:fix_master/pages/provider/jobs/job_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,7 +59,7 @@ class JobScreen extends StatelessWidget {
 
   Widget _header() {
     return Container(
-      padding: EdgeInsets.fromLTRB(20, 70, 20, 20),
+      padding: EdgeInsets.fromLTRB(20, Platform.isAndroid ? 50 : 70, 20, 20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [Color(0xff19A74A), Color(0xff17C964)],
