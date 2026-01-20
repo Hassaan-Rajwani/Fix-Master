@@ -1,4 +1,5 @@
 import 'package:fix_master/controllers/customer/home/booking_stepper_controller.dart';
+import 'package:fix_master/pages/customer/setting/add_new_address.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -63,20 +64,23 @@ class ServiceLocationStep extends StatelessWidget {
           SizedBox(height: 14.h),
 
           /// ➕ Add New Address
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 14.h),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Center(
-              child: Text(
-                "+ Add New Address",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
+          GestureDetector(
+            onTap: () => Get.to(() => AddNewAddressScreen()),
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 14.h),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Center(
+                child: Text(
+                  "+ Add New Address",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
