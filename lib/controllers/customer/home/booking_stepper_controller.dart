@@ -1,3 +1,4 @@
+import 'package:fix_master/pages/customer/home/booking/booking_confirm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -65,7 +66,11 @@ class BookingStepperController extends GetxController {
   }
 
   void nextStep() {
-    currentStep.value++;
+    if (currentStep.value < 3) {
+      currentStep.value++;
+    } else {
+      Get.to(() => BookingConfirmedScreen());
+    }
   }
 
   void previousStep() {
