@@ -1,3 +1,4 @@
+import 'package:fix_master/pages/auth/login_screen.dart';
 import 'package:fix_master/pages/customer/setting/payment_method.dart';
 import 'package:fix_master/pages/customer/setting/saved_address.dart';
 import 'package:flutter/material.dart';
@@ -165,6 +166,30 @@ class SettingScreen extends StatelessWidget {
           _menuItem(Icons.notifications, "Notifications", "On"),
           _menuItem(Icons.card_giftcard, "Rewards & Offers", "5 available"),
           _menuItem(Icons.help_outline, "Help & Support", ""),
+          const SizedBox(height: 24),
+
+          /// SIGN OUT
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Get.offAll(() => LoginScreen());
+              },
+              icon: const Icon(Icons.logout, color: Colors.red),
+              label: const Text(
+                "Sign Out",
+                style: TextStyle(color: Colors.red),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xffFDECEC),
+                elevation: 0,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

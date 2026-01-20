@@ -1,3 +1,4 @@
+import 'package:fix_master/pages/auth/forgot_password.dart';
 import 'package:fix_master/pages/auth/signup_screen.dart';
 import 'package:fix_master/pages/customer/dashboard/customer_bottom_nav.dart';
 import 'package:fix_master/utils/color_constant.dart';
@@ -77,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
               10.verticalSpace,
               GestureDetector(
                 onTap: () {
-                  // Get.to(() => ForgotPasswordScreen());
+                  Get.to(() => ForgotPasswordScreen());
                 },
                 child: Text(
                   'Forgot Password?',
