@@ -1,26 +1,35 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class StatsScreen extends StatelessWidget {
-  const StatsScreen({super.key});
+class PerformanceScreen extends StatelessWidget {
+  const PerformanceScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffF5F6FA),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          toolbarHeight: 80.h,
+          title: Text(
+            "Performance",
+            style: TextStyle(
+              color: AppColor.primaryColor2,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(16.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Performance",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 5.h),
               _performanceScoreCard(),
               SizedBox(height: 16.h),
               _statsGrid(),
@@ -58,8 +67,11 @@ class StatsScreen extends StatelessWidget {
       padding: EdgeInsets.all(24.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
-        gradient: const LinearGradient(
-          colors: [Color(0xff4C8BF5), Color(0xff3B6EEA)],
+        gradient: LinearGradient(
+          colors: [
+            AppColor.primaryColor2,
+            AppColor.primaryColor2.withOpacity(0.8),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -106,20 +118,25 @@ class StatsScreen extends StatelessWidget {
       childAspectRatio: 1.2,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      children: const [
-        _StatCard("4.9", "Rating", Icons.star, Colors.orange),
+      children: [
+        const _StatCard("4.9", "Rating", Icons.star, Colors.orange),
         _StatCard(
           "94%",
           "Acceptance\nLast 30 days",
           Icons.thumb_up,
-          Colors.green,
+          AppColor.primaryColor2,
         ),
-        _StatCard("98%", "On-Time\nPunctuality", Icons.schedule, Colors.blue),
+        const _StatCard(
+          "98%",
+          "On-Time\nPunctuality",
+          Icons.schedule,
+          Colors.blue,
+        ),
         _StatCard(
           "99%",
           "Completion\nJob success",
           Icons.check_circle,
-          Colors.teal,
+          AppColor.primaryColor2,
         ),
       ],
     );
@@ -162,10 +179,10 @@ class StatsScreen extends StatelessWidget {
                     Row(
                       children: List.generate(
                         stars,
-                        (index) => const Icon(
+                        (index) => Icon(
                           Icons.star,
                           size: 16,
-                          color: Colors.orange,
+                          color: AppColor.primaryColor2,
                         ),
                       ),
                     ),
@@ -190,11 +207,11 @@ class StatsScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: const Color(0xffE6F4EA),
+        color: AppColor.primaryColor2.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.green.withOpacity(0.08),
+            color: AppColor.primaryColor2.withOpacity(0.08),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -202,7 +219,7 @@ class StatsScreen extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(Icons.emoji_events, color: Colors.green),
+          Icon(Icons.emoji_events, color: AppColor.primaryColor2),
           SizedBox(width: 12.w),
           Expanded(
             child: Column(

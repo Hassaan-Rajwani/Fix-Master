@@ -1,9 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/controllers/customer/home/booking_stepper_controller.dart';
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:fix_master/controllers/customer/home/booking_stepper_controller.dart';
 
 class AddNewAddressScreen extends StatelessWidget {
   AddNewAddressScreen({super.key});
@@ -19,17 +20,20 @@ class AddNewAddressScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
       appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
-        backgroundColor: const Color(0xffF6F7FB),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Get.back(),
+        toolbarHeight: 80.h,
+        leading: GestureDetector(
+          onTap: () => Get.back(),
+          child: Icon(Icons.arrow_back, color: AppColor.primaryColor),
         ),
-        title: const Text(
+        title: Text(
           "Add New Address",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: AppColor.primaryColor,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.w),
@@ -64,12 +68,15 @@ class AddNewAddressScreen extends StatelessWidget {
               height: 160.h,
               width: double.infinity,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xffEAF1FF), Color(0xffD4E2FF)],
+                gradient: LinearGradient(
+                  colors: [
+                    AppColor.primaryColor.withOpacity(0.12),
+                    AppColor.primaryColor.withOpacity(0.22),
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black12,
@@ -79,13 +86,13 @@ class AddNewAddressScreen extends StatelessWidget {
                 ],
               ),
               child: InkWell(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.location_on,
-                      color: Color(0xff4285F4),
+                      color: AppColor.primaryColor,
                       size: 32,
                     ),
                     SizedBox(height: 6.h),
@@ -114,8 +121,8 @@ class AddNewAddressScreen extends StatelessWidget {
                     Get.snackbar(
                       "Error",
                       "Please fill all required fields",
-                      backgroundColor: Colors.red.shade100,
-                      colorText: Colors.red.shade800,
+                      backgroundColor: AppColor.primaryColor.withOpacity(0.15),
+                      colorText: AppColor.primaryColor,
                     );
                     return;
                   }
@@ -129,11 +136,11 @@ class AddNewAddressScreen extends StatelessWidget {
                   Get.back();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff4285F4),
+                  backgroundColor: AppColor.primaryColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(30.r),
                   ),
-                  shadowColor: Colors.black26,
+                  shadowColor: AppColor.primaryColor.withOpacity(0.4),
                   elevation: 5,
                 ),
                 child: Text(
@@ -141,6 +148,7 @@ class AddNewAddressScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -151,7 +159,7 @@ class AddNewAddressScreen extends StatelessWidget {
     );
   }
 
-  /// 🔤 Enhanced Input Field
+  /// 🔤 Input Field
   Widget _inputField({
     required String label,
     required String hint,
@@ -169,7 +177,7 @@ class AddNewAddressScreen extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(14.r),
             boxShadow: [
               BoxShadow(
                 color: Colors.black12,
@@ -188,13 +196,13 @@ class AddNewAddressScreen extends StatelessWidget {
                 vertical: 12.h,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(14.r),
                 borderSide: BorderSide.none,
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(14),
-                borderSide: const BorderSide(
-                  color: Color(0xff4285F4),
+                borderRadius: BorderRadius.circular(14.r),
+                borderSide: BorderSide(
+                  color: AppColor.primaryColor,
                   width: 1.5,
                 ),
               ),

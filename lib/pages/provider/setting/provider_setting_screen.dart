@@ -1,11 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:fix_master/pages/auth/login_screen.dart';
+import 'package:fix_master/utils/color_constant.dart';
 
 class ProviderSettingScreen extends StatelessWidget {
   const ProviderSettingScreen({super.key});
@@ -33,13 +33,13 @@ class ProviderSettingScreen extends StatelessWidget {
                     icon: Icons.shield_outlined,
                     title: "ID Verification",
                     status: "Verified",
-                    statusColor: Colors.green,
+                    statusColor: AppColor.primaryColor2,
                   ),
                   _documentTile(
                     icon: Icons.description_outlined,
                     title: "Background Check",
                     status: "Verified",
-                    statusColor: Colors.green,
+                    statusColor: AppColor.primaryColor2,
                   ),
                   _documentTile(
                     icon: Icons.workspace_premium_outlined,
@@ -76,7 +76,7 @@ class ProviderSettingScreen extends StatelessWidget {
                     icon: const Icon(Icons.add, size: 18),
                     label: const Text("Add More Areas"),
                     style: TextButton.styleFrom(
-                      foregroundColor: const Color(0xff3B6EEA),
+                      foregroundColor: AppColor.primaryColor2,
                     ),
                   ),
 
@@ -103,7 +103,7 @@ class ProviderSettingScreen extends StatelessWidget {
                       onPressed: () {
                         Get.offAll(() => LoginScreen());
                       },
-                      icon: const Icon(Icons.logout, color: Colors.red),
+                      icon: Icon(Icons.logout, color: Colors.red),
                       label: const Text(
                         "Sign Out",
                         style: TextStyle(color: Colors.red),
@@ -140,8 +140,11 @@ class ProviderSettingScreen extends StatelessWidget {
         24.h,
       ),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xff1BA94C), Color(0xff14A44D)],
+        gradient: LinearGradient(
+          colors: [
+            AppColor.primaryColor2,
+            AppColor.primaryColor2.withOpacity(0.8),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -277,7 +280,7 @@ class ProviderSettingScreen extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        leading: Icon(icon),
+        leading: Icon(icon, color: AppColor.primaryColor2),
         title: Text(title),
         trailing: const Icon(Icons.chevron_right),
         onTap: onTap,
@@ -294,8 +297,8 @@ class _AreaChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Chip(
       label: Text(title),
-      backgroundColor: const Color(0xffEAF2FF),
-      labelStyle: const TextStyle(color: Color(0xff3B6EEA)),
+      backgroundColor: AppColor.primaryColor2.withOpacity(0.1),
+      labelStyle: TextStyle(color: AppColor.primaryColor2),
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
     );
   }

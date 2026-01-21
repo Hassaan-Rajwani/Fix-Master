@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:fix_master/controllers/customer/home/booking_stepper_controller.dart';
+import 'package:fix_master/utils/color_constant.dart';
 
 class BookingSummaryStep extends StatelessWidget {
   BookingSummaryStep({super.key});
@@ -48,12 +49,12 @@ class BookingSummaryStep extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.15),
+                  color: AppColor.primaryColor.withOpacity(0.15),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.electrical_services,
-                  color: Colors.blue,
+                  color: AppColor.primaryColor,
                   size: 22.sp,
                 ),
               ),
@@ -152,7 +153,7 @@ class BookingSummaryStep extends StatelessWidget {
             style: TextStyle(
               fontSize: isTotal ? 15.sp : 13.sp,
               fontWeight: isTotal ? FontWeight.bold : FontWeight.w500,
-              color: isTotal ? Colors.blue[800] : Colors.black,
+              color: isTotal ? AppColor.primaryColor : Colors.black,
             ),
           ),
           Text(
@@ -163,7 +164,7 @@ class BookingSummaryStep extends StatelessWidget {
               color: isDiscount
                   ? Colors.green
                   : isTotal
-                  ? Colors.blue[800]
+                  ? AppColor.primaryColor
                   : Colors.black,
             ),
           ),
@@ -175,7 +176,7 @@ class BookingSummaryStep extends StatelessWidget {
   BoxDecoration _cardDecoration() {
     return BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(14),
+      borderRadius: BorderRadius.circular(14.r),
       boxShadow: [
         BoxShadow(
           color: Colors.black.withOpacity(0.08),

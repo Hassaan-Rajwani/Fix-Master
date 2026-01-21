@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:fix_master/pages/customer/home/service/service_detail.dart';
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -46,8 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       padding: EdgeInsets.fromLTRB(20.w, 60.h, 20.w, 30.h),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xff4285F4), Color(0xff5A9BFF)],
+        gradient: LinearGradient(
+          colors: [
+            AppColor.primaryColor,
+            AppColor.primaryColor.withOpacity(0.85),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -58,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Row(
             children: [
-              const Icon(Icons.location_on, color: Colors.white),
+              Icon(Icons.location_on, color: Colors.white.withOpacity(0.95)),
               6.horizontalSpace,
               Text(
                 "Downtown, NYC",
@@ -93,9 +97,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            child: const TextField(
+            child: TextField(
               decoration: InputDecoration(
-                icon: Icon(Icons.search),
+                icon: Icon(
+                  Icons.search,
+                  color: AppColor.primaryColor.withOpacity(0.7),
+                ),
                 hintText: "Search for services...",
                 border: InputBorder.none,
               ),
@@ -171,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         children: [
           _statCard("4.8", "Avg Rating", Icons.star, Colors.orange),
-          _statCard("30 min", "Response", Icons.timer, Colors.blue),
+          _statCard("30 min", "Response", Icons.timer, AppColor.primaryColor),
           _statCard("250+", "Services", Icons.build, Colors.green),
           _statCard("99%", "Satisfaction", Icons.thumb_up, Colors.purple),
         ],
@@ -226,24 +233,28 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Text(
             "All Services",
-            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColor.primaryColor,
+            ),
           ),
           10.verticalSpace,
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero, // 🔑 MOST IMPORTANT
+            padding: EdgeInsets.zero,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 12.w,
               mainAxisSpacing: 12.h,
-              childAspectRatio: 0.9, // 🔧 height control
+              childAspectRatio: 0.9,
             ),
             itemCount: 6,
             itemBuilder: (context, index) {
               final items = [
                 _serviceItem(Icons.flash_on, "Electrician", Colors.orange),
-                _serviceItem(Icons.plumbing, "Plumber", Colors.blue),
+                _serviceItem(Icons.plumbing, "Plumber", AppColor.primaryColor),
                 _serviceItem(Icons.ac_unit, "AC Service", Colors.cyan),
                 _serviceItem(Icons.cleaning_services, "Cleaning", Colors.green),
                 _serviceItem(Icons.construction, "Repair", Colors.purple),

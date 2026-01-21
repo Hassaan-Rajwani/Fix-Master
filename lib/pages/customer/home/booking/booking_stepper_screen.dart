@@ -5,6 +5,7 @@ import 'package:fix_master/pages/customer/home/booking/date_time_step.dart';
 import 'package:fix_master/pages/customer/home/booking/location_stepper.dart';
 import 'package:fix_master/pages/customer/home/booking/payment_stepper.dart';
 import 'package:fix_master/pages/customer/home/booking/summary_stepper.dart';
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -26,9 +27,15 @@ class BookingStepperScreen extends StatelessWidget {
         toolbarHeight: 80.h,
         leading: GestureDetector(
           onTap: controller.previousStep,
-          child: const Icon(Icons.arrow_back, color: Colors.black),
+          child: Icon(Icons.arrow_back, color: AppColor.primaryColor),
         ),
-        title: const Text("New Wiring", style: TextStyle(color: Colors.black)),
+        title: Text(
+          "New Wiring",
+          style: TextStyle(
+            color: AppColor.primaryColor,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -39,49 +46,13 @@ class BookingStepperScreen extends StatelessWidget {
               child: Obx(() {
                 switch (controller.currentStep.value) {
                   case 0:
-                    return Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.r),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(16.w),
-                        child: DateTimeStep(),
-                      ),
-                    );
+                    return _stepCard(DateTimeStep());
                   case 1:
-                    return Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.r),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(16.w),
-                        child: ServiceLocationStep(),
-                      ),
-                    );
+                    return _stepCard(ServiceLocationStep());
                   case 2:
-                    return Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.r),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(16.w),
-                        child: BookingSummaryStep(),
-                      ),
-                    );
+                    return _stepCard(BookingSummaryStep());
                   case 3:
-                    return Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.r),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(16.w),
-                        child: PaymentMethodStep(),
-                      ),
-                    );
+                    return _stepCard(PaymentMethodStep());
                   default:
                     return const SizedBox();
                 }
@@ -94,7 +65,16 @@ class BookingStepperScreen extends StatelessWidget {
     );
   }
 
-  /// 🔹 Animated Stepper with Circles & Labels
+  /// 🔹 Reusable Step Card
+  Widget _stepCard(Widget child) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+      child: Padding(padding: EdgeInsets.all(16.w), child: child),
+    );
+  }
+
+  /// 🔹 Animated Stepper
   Widget _animatedStepper() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -109,10 +89,10 @@ class BookingStepperScreen extends StatelessWidget {
                 width: 30.w,
                 height: 30.w,
                 decoration: BoxDecoration(
-                  color: isActive ? const Color(0xff4285F4) : Colors.white,
+                  color: isActive ? AppColor.primaryColor : Colors.white,
                   border: Border.all(
                     color: isActive
-                        ? const Color(0xff4285F4)
+                        ? AppColor.primaryColor
                         : Colors.grey.shade300,
                     width: 2,
                   ),
@@ -120,7 +100,7 @@ class BookingStepperScreen extends StatelessWidget {
                   boxShadow: isActive
                       ? [
                           BoxShadow(
-                            color: const Color(0xff4285F4).withOpacity(0.4),
+                            color: AppColor.primaryColor.withOpacity(0.35),
                             blurRadius: 6,
                             offset: const Offset(0, 3),
                           ),
@@ -148,7 +128,7 @@ class BookingStepperScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 300),
                   height: 4.h,
                   color: isFilled
-                      ? const Color(0xff4285F4)
+                      ? AppColor.primaryColor
                       : Colors.grey.shade300,
                 ),
               );
@@ -159,12 +139,12 @@ class BookingStepperScreen extends StatelessWidget {
     );
   }
 
-  /// 🔹 Bottom Button with dynamic text & gradient
+  /// 🔹 Bottom Action Button
   Widget _bottomButton() {
     return Padding(
       padding: EdgeInsets.all(20.w),
       child: Obx(() {
-        String btnText = "";
+        String btnText;
         switch (controller.currentStep.value) {
           case 0:
             btnText = "Confirm Date & Time";
@@ -189,14 +169,19 @@ class BookingStepperScreen extends StatelessWidget {
             onPressed: controller.nextStep,
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.zero,
+              backgroundColor: Colors.transparent,
+              shadowColor: Colors.transparent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.r),
               ),
             ),
             child: Ink(
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xff4285F4), Color(0xff5A9BFF)],
+                gradient: LinearGradient(
+                  colors: [
+                    AppColor.primaryColor,
+                    AppColor.primaryColor.withOpacity(0.85),
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),

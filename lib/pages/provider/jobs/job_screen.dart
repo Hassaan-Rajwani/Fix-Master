@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:fix_master/pages/provider/jobs/job_detail.dart';
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,35 +21,30 @@ class JobScreen extends StatelessWidget {
           _header(),
           // ================= BODY =================
           Expanded(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                await Future.delayed(const Duration(seconds: 1));
-              },
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: EdgeInsets.only(top: 16.h, bottom: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _newJobCard(),
-                    SizedBox(height: 20.h),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: const Text(
-                        "Upcoming Jobs",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: EdgeInsets.only(top: 16.h, bottom: 20.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _newJobCard(),
+                  SizedBox(height: 20.h),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: const Text(
+                      "Upcoming Jobs",
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10.h),
-                    _upcomingJobs(),
-                    _upcomingJobs(),
-                    _upcomingJobs(),
-                    _upcomingJobs(),
-                    _upcomingJobs(),
-                    _upcomingJobs(),
-                    150.verticalSpace,
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 10.h),
+                  _upcomingJobs(),
+                  _upcomingJobs(),
+                  _upcomingJobs(),
+                  _upcomingJobs(),
+                  _upcomingJobs(),
+                  _upcomingJobs(),
+                  150.verticalSpace,
+                ],
               ),
             ),
           ),
@@ -61,8 +57,11 @@ class JobScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.fromLTRB(20, Platform.isAndroid ? 50 : 70, 20, 20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xff19A74A), Color(0xff17C964)],
+        gradient: LinearGradient(
+          colors: [
+            AppColor.primaryColor2,
+            AppColor.primaryColor2.withOpacity(0.9),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -175,25 +174,25 @@ class JobScreen extends StatelessWidget {
             offset: const Offset(0, 6),
           ),
         ],
-        border: Border.all(color: const Color(0xff4F7CFE), width: 1.2),
+        border: Border.all(color: AppColor.primaryColor, width: 1.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Text(
+              Text(
                 "New Job Request!",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff4F7CFE),
+                  color: AppColor.primaryColor2,
                 ),
               ),
               const Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                 decoration: BoxDecoration(
-                  color: const Color(0xff4F7CFE),
+                  color: AppColor.primaryColor2,
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: const Text(
@@ -208,8 +207,8 @@ class JobScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 22,
-                backgroundColor: Color(0xff4F7CFE).withOpacity(0.3),
-                child: const Icon(Icons.ac_unit, color: Color(0xff4F7CFE)),
+                backgroundColor: AppColor.primaryColor2.withOpacity(0.3),
+                child: const Icon(Icons.ac_unit, color: AppColor.primaryColor2),
               ),
               SizedBox(width: 12.w),
               Expanded(
@@ -234,7 +233,7 @@ class JobScreen extends StatelessWidget {
               const Text(
                 "\$85",
                 style: TextStyle(
-                  color: Color(0xff4F7CFE),
+                  color: AppColor.primaryColor2,
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),
@@ -266,15 +265,12 @@ class JobScreen extends StatelessWidget {
                 child: OutlinedButton(
                   onPressed: () {},
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Colors.red),
+                    side: BorderSide(color: Colors.red),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.r),
                     ),
                   ),
-                  child: const Text(
-                    "Reject",
-                    style: TextStyle(color: Colors.red),
-                  ),
+                  child: Text("Reject", style: TextStyle(color: Colors.red)),
                 ),
               ),
               SizedBox(width: 12.w),
@@ -282,7 +278,7 @@ class JobScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff19A74A),
+                    backgroundColor: AppColor.primaryColor2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.r),
                     ),
@@ -316,7 +312,7 @@ class JobScreen extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const Icon(Icons.ac_unit, color: Color(0xff4F7CFE)),
+            const Icon(Icons.ac_unit, color: AppColor.primaryColor),
             SizedBox(width: 10.w),
             Expanded(
               child: Column(
@@ -339,7 +335,7 @@ class JobScreen extends StatelessWidget {
                 Text(
                   "\$35",
                   style: TextStyle(
-                    color: Color(0xff4F7CFE),
+                    color: AppColor.primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

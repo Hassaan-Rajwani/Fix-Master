@@ -2,6 +2,7 @@
 
 import 'package:fix_master/controllers/customer/home/booking_stepper_controller.dart';
 import 'package:fix_master/pages/customer/setting/add_new_address.dart';
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,17 +26,20 @@ class ServiceLocationStep extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
 
-            /// 🗺️ Interactive Map Placeholder
+            /// 🗺️ Map Placeholder
             Container(
               height: 150.h,
               width: double.infinity,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xffEAF1FF), Color(0xffD4E2FF)],
+                gradient: LinearGradient(
+                  colors: [
+                    AppColor.primaryColor.withOpacity(0.12),
+                    AppColor.primaryColor.withOpacity(0.22),
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(18.r),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black12,
@@ -47,10 +51,10 @@ class ServiceLocationStep extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.location_on,
                     size: 36,
-                    color: Color(0xff4285F4),
+                    color: AppColor.primaryColor,
                   ),
                   SizedBox(height: 6.h),
                   Text(
@@ -77,7 +81,7 @@ class ServiceLocationStep extends StatelessWidget {
 
             SizedBox(height: 14.h),
 
-            /// ➕ Add New Address Button
+            /// ➕ Add New Address
             GestureDetector(
               onTap: () => Get.to(() => AddNewAddressScreen()),
               child: AnimatedContainer(
@@ -85,8 +89,10 @@ class ServiceLocationStep extends StatelessWidget {
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(vertical: 16.h),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.grey.shade400),
+                  borderRadius: BorderRadius.circular(16.r),
+                  border: Border.all(
+                    color: AppColor.primaryColor.withOpacity(0.4),
+                  ),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
@@ -100,9 +106,9 @@ class ServiceLocationStep extends StatelessWidget {
                   child: Text(
                     "+ Add New Address",
                     style: TextStyle(
-                      color: Colors.grey.shade600,
+                      color: AppColor.primaryColor,
                       fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -114,7 +120,7 @@ class ServiceLocationStep extends StatelessWidget {
     );
   }
 
-  /// 🏠 Address Tile with animated selection
+  /// 🏠 Address Tile
   Widget _addressTile(int index) {
     return Obx(() {
       final isSelected = controller.selectedAddressIndex.value == index;
@@ -128,17 +134,15 @@ class ServiceLocationStep extends StatelessWidget {
           padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : Colors.grey.shade50,
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(18.r),
             border: Border.all(
-              color: isSelected
-                  ? const Color(0xff4285F4)
-                  : Colors.grey.shade300,
-              width: isSelected ? 1.5 : 1.0,
+              color: isSelected ? AppColor.primaryColor : Colors.grey.shade300,
+              width: isSelected ? 1.5 : 1,
             ),
             boxShadow: isSelected
                 ? [
                     BoxShadow(
-                      color: const Color(0xff4285F4).withOpacity(0.2),
+                      color: AppColor.primaryColor.withOpacity(0.25),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -150,7 +154,7 @@ class ServiceLocationStep extends StatelessWidget {
               CircleAvatar(
                 radius: 20.r,
                 backgroundColor: isSelected
-                    ? const Color(0xff4285F4)
+                    ? AppColor.primaryColor
                     : Colors.grey.shade200,
                 child: Icon(
                   item["icon"] as IconData,
@@ -168,7 +172,6 @@ class ServiceLocationStep extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
-                        color: isSelected ? Colors.black : Colors.black87,
                       ),
                     ),
                     SizedBox(height: 4.h),
@@ -185,7 +188,7 @@ class ServiceLocationStep extends StatelessWidget {
               AnimatedOpacity(
                 duration: const Duration(milliseconds: 250),
                 opacity: isSelected ? 1 : 0,
-                child: const Icon(Icons.check_circle, color: Color(0xff4285F4)),
+                child: Icon(Icons.check_circle, color: AppColor.primaryColor),
               ),
             ],
           ),

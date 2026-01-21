@@ -4,6 +4,7 @@ import 'package:fix_master/pages/customer/booking/booking_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:fix_master/utils/color_constant.dart';
 
 class BookingController extends GetxController {
   RxInt selectedTab = 0.obs;
@@ -66,28 +67,32 @@ class BookingScreen extends StatelessWidget {
   BookingScreen({super.key});
 
   final controller = Get.put(BookingController());
-
   final List<String> tabs = ["Upcoming", "Completed", "Cancelled"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        toolbarHeight: 80.h,
+        title: Text(
+          "My Bookings",
+          style: TextStyle(
+            color: AppColor.primaryColor,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.all(20.w),
-              child: Text(
-                "My Bookings",
-                style: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.bold),
-              ),
-            ),
-
+            15.verticalSpace,
             _tabs(),
 
-            SizedBox(height: 10.h),
+            SizedBox(height: 15.h),
 
             /// Booking List
             Expanded(
@@ -140,18 +145,28 @@ class BookingScreen extends StatelessWidget {
                 onTap: () => controller.selectedTab.value = index,
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 12.w,
-                    vertical: 6.h,
+                    horizontal: 14.w,
+                    vertical: 8.h,
                   ),
                   decoration: BoxDecoration(
-                    color: isSelected ? const Color(0xff4285F4) : Colors.white,
+                    color: isSelected ? AppColor.primaryColor : Colors.white,
                     borderRadius: BorderRadius.circular(25),
+                    boxShadow: isSelected
+                        ? [
+                            BoxShadow(
+                              color: AppColor.primaryColor.withOpacity(0.3),
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
+                            ),
+                          ]
+                        : [],
                   ),
                   child: Text(
                     tabs[index],
                     style: TextStyle(
                       color: isSelected ? Colors.white : Colors.black,
                       fontWeight: FontWeight.w600,
+                      fontSize: 14.sp,
                     ),
                   ),
                 ),
@@ -182,6 +197,13 @@ class BookingScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,7 +242,10 @@ class BookingScreen extends StatelessWidget {
 
             SizedBox(height: 6.h),
 
-            Text("by $name", style: TextStyle(color: Colors.grey)),
+            Text(
+              "by $name",
+              style: TextStyle(color: Colors.grey, fontSize: 13.sp),
+            ),
 
             SizedBox(height: 12.h),
 
@@ -228,15 +253,15 @@ class BookingScreen extends StatelessWidget {
               children: [
                 Icon(Icons.calendar_today, size: 16, color: Colors.grey),
                 SizedBox(width: 6.w),
-                Text(date),
+                Text(date, style: TextStyle(fontSize: 12.sp)),
                 SizedBox(width: 20.w),
                 Icon(Icons.access_time, size: 16, color: Colors.grey),
                 SizedBox(width: 6.w),
-                Text(time),
+                Text(time, style: TextStyle(fontSize: 12.sp)),
               ],
             ),
 
-            Divider(height: 30.h),
+            Divider(height: 30.h, color: Colors.grey.shade200),
 
             /// Price + Rating + View Details
             Row(
@@ -246,21 +271,22 @@ class BookingScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xff4285F4),
+                    color: AppColor.primaryColor,
                   ),
                 ),
                 if (rating.isNotEmpty) ...[
                   SizedBox(width: 15.w),
                   const Icon(Icons.star, color: Colors.orange, size: 18),
                   SizedBox(width: 4.w),
-                  Text(rating),
+                  Text(rating, style: TextStyle(fontSize: 13.sp)),
                 ],
                 const Spacer(),
                 Text(
                   "View Details  >",
                   style: TextStyle(
-                    color: const Color(0xff4285F4),
+                    color: AppColor.primaryColor,
                     fontWeight: FontWeight.w600,
+                    fontSize: 13.sp,
                   ),
                 ),
               ],

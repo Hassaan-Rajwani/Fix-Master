@@ -1,11 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:async';
-
 import 'package:fix_master/pages/customer/home/booking/review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:fix_master/utils/color_constant.dart';
 
 class TrackServiceScreen extends StatefulWidget {
   const TrackServiceScreen({super.key});
@@ -61,11 +61,11 @@ class _TrackServiceScreenState extends State<TrackServiceScreen>
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Container(color: Colors.blue.withOpacity(0.08)),
-                  const Icon(
+                  Container(color: AppColor.primaryColor.withOpacity(0.08)),
+                  Icon(
                     Icons.navigation,
                     size: 40,
-                    color: Color(0xff4285F4),
+                    color: AppColor.primaryColor,
                   ),
                   Positioned(
                     bottom: 40.h,
@@ -86,9 +86,9 @@ class _TrackServiceScreenState extends State<TrackServiceScreen>
                       ),
                       child: Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.local_shipping,
-                            color: Color(0xff4285F4),
+                            color: AppColor.primaryColor,
                           ),
                           SizedBox(width: 8.w),
                           Text(
@@ -144,15 +144,19 @@ class _TrackServiceScreenState extends State<TrackServiceScreen>
                         Get.to(() => const ServiceCompletedScreen());
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff4285F4),
+                        backgroundColor: AppColor.primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                         elevation: 4,
                       ),
-                      child: const Text(
+                      child: Text(
                         "Complete & Rate",
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -192,7 +196,7 @@ class _TrackServiceScreenState extends State<TrackServiceScreen>
                   style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff4285F4),
+                    color: AppColor.primaryColor,
                   ),
                 ),
               ],
@@ -200,8 +204,8 @@ class _TrackServiceScreenState extends State<TrackServiceScreen>
           ),
           CircleAvatar(
             radius: 22,
-            backgroundColor: Colors.blue.withOpacity(0.1),
-            child: const Icon(Icons.person, color: Color(0xff4285F4)),
+            backgroundColor: AppColor.primaryColor.withOpacity(0.1),
+            child: Icon(Icons.person, color: AppColor.primaryColor),
           ),
         ],
       ),
@@ -227,7 +231,7 @@ class _TrackServiceScreenState extends State<TrackServiceScreen>
               CircleAvatar(
                 radius: 24,
                 backgroundColor: Colors.grey.shade200,
-                child: const Icon(Icons.person),
+                child: Icon(Icons.person, color: Colors.grey.shade600),
               ),
               SizedBox(width: 12.w),
               Expanded(
@@ -244,7 +248,7 @@ class _TrackServiceScreenState extends State<TrackServiceScreen>
                     SizedBox(height: 4.h),
                     Row(
                       children: [
-                        const Icon(Icons.star, size: 14, color: Colors.orange),
+                        Icon(Icons.star, size: 14, color: Colors.orange),
                         SizedBox(width: 4.w),
                         Text(
                           "4.9 • 523 jobs",
@@ -255,15 +259,15 @@ class _TrackServiceScreenState extends State<TrackServiceScreen>
                   ],
                 ),
               ),
-              Icon(Icons.call, color: Color(0xff4285F4)),
+              Icon(Icons.call, color: AppColor.primaryColor),
               SizedBox(width: 12.w),
-              Icon(Icons.chat, color: Color(0xff4285F4)),
+              Icon(Icons.chat, color: AppColor.primaryColor),
             ],
           ),
 
           SizedBox(height: 16.h),
 
-          /// Status Timeline with vertical progress indicator
+          /// Status Timeline
           Column(
             children: [
               _statusRow("Booking confirmed", true, "10:00 AM"),

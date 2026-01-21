@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:fix_master/controllers/customer/home/booking_stepper_controller.dart';
+import 'package:fix_master/utils/color_constant.dart';
 
 class PaymentMethodStep extends StatelessWidget {
   PaymentMethodStep({super.key});
@@ -45,17 +46,17 @@ class PaymentMethodStep extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
                           color: isSelected
-                              ? const Color(0xff4285F4)
+                              ? AppColor.primaryColor
                               : Colors.grey.shade300,
                           width: isSelected ? 2 : 1.2,
                         ),
                         color: isSelected
-                            ? (item["color"] as Color).withOpacity(0.1)
+                            ? AppColor.primaryColor.withOpacity(0.1)
                             : Colors.white,
                         boxShadow: [
                           if (isSelected)
                             BoxShadow(
-                              color: (item["color"] as Color).withOpacity(0.2),
+                              color: AppColor.primaryColor.withOpacity(0.2),
                               blurRadius: 10,
                               offset: const Offset(0, 4),
                             ),
@@ -66,12 +67,12 @@ class PaymentMethodStep extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.all(12.w),
                             decoration: BoxDecoration(
-                              color: (item["color"] as Color).withOpacity(0.2),
+                              color: AppColor.primaryColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Icon(
                               item["icon"] as IconData,
-                              color: item["color"] as Color,
+                              color: AppColor.primaryColor,
                               size: 24.sp,
                             ),
                           ),
@@ -103,9 +104,9 @@ class PaymentMethodStep extends StatelessWidget {
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 300),
                             opacity: isSelected ? 1 : 0,
-                            child: const Icon(
+                            child: Icon(
                               Icons.check_circle,
-                              color: Color(0xff4285F4),
+                              color: AppColor.primaryColor,
                             ),
                           ),
                         ],

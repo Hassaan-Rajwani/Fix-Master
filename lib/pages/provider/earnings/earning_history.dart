@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class EarningsHistoryPage extends StatefulWidget {
   const EarningsHistoryPage({super.key});
@@ -69,14 +71,20 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
       appBar: AppBar(
-        title: const Text(
-          "Earnings History",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
+        backgroundColor: Colors.white,
         elevation: 0,
-        backgroundColor: const Color(0xff14A44D),
         toolbarHeight: 80.h,
+        leading: GestureDetector(
+          onTap: () => Get.back(),
+          child: Icon(Icons.arrow_back, color: AppColor.primaryColor2),
+        ),
+        title: Text(
+          "Earnings History",
+          style: TextStyle(
+            color: AppColor.primaryColor2,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.w),
@@ -141,10 +149,10 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
         duration: const Duration(milliseconds: 250),
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: isActive ? const Color(0xff14A44D) : Colors.white,
+          color: isActive ? AppColor.primaryColor2 : Colors.white,
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
-            color: isActive ? const Color(0xff14A44D) : Colors.grey.shade300,
+            color: isActive ? AppColor.primaryColor2 : Colors.grey.shade300,
           ),
           boxShadow: isActive
               ? [
@@ -192,8 +200,11 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
         children: [
           CircleAvatar(
             radius: 20,
-            backgroundColor: const Color(0xff14A44D).withOpacity(0.15),
-            child: const Icon(Icons.attach_money, color: Color(0xff14A44D)),
+            backgroundColor: AppColor.primaryColor2.withOpacity(0.15),
+            child: const Icon(
+              Icons.attach_money,
+              color: AppColor.primaryColor2,
+            ),
           ),
           SizedBox(width: 12.w),
           Expanded(
@@ -216,9 +227,9 @@ class _EarningsHistoryPageState extends State<EarningsHistoryPage> {
             children: [
               Text(
                 amount,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff14A44D),
+                  color: AppColor.primaryColor2,
                   fontSize: 14,
                 ),
               ),

@@ -1,4 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
+import 'dart:io';
+
 import 'package:fix_master/pages/customer/home/booking/booking_stepper_screen.dart';
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,9 +25,9 @@ class ServiceDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _ratingRow(),
-                  SizedBox(height: 25.h),
+                  25.verticalSpace,
                   _sectionTitle("Wiring"),
-                  SizedBox(height: 12.h),
+                  12.verticalSpace,
                   _serviceTile(
                     title: "New Wiring",
                     time: "2-3 hrs",
@@ -38,9 +43,9 @@ class ServiceDetailScreen extends StatelessWidget {
                     time: "1 hr",
                     price: "\$50",
                   ),
-                  SizedBox(height: 25.h),
+                  25.verticalSpace,
                   _sectionTitle("Lighting"),
-                  SizedBox(height: 12.h),
+                  12.verticalSpace,
                   _serviceTile(
                     title: "Light Installation",
                     time: "1 hr",
@@ -71,46 +76,50 @@ class ServiceDetailScreen extends StatelessWidget {
   /// 🔵 Top Header
   Widget _topHeader() {
     return Container(
-      padding: EdgeInsets.fromLTRB(16.w, 70.h, 16.w, 20.h),
+      padding: EdgeInsets.fromLTRB(
+        16.w,
+        Platform.isAndroid ? 50.h : 70.h,
+        16.w,
+        20.h,
+      ),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xff4285F4), Color(0xff5A9BFF)],
+        gradient: LinearGradient(
+          colors: [
+            AppColor.primaryColor,
+            AppColor.primaryColor.withOpacity(0.85),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(26.r)),
       ),
-      child: Column(
+      child: Row(
         children: [
-          Row(
+          GestureDetector(
+            onTap: () => Get.back(),
+            child: const Icon(Icons.arrow_back, color: Colors.white),
+          ),
+          10.horizontalSpace,
+          CircleAvatar(
+            radius: 24,
+            backgroundColor: Colors.orange,
+            child: const Icon(Icons.flash_on, color: Colors.white),
+          ),
+          12.horizontalSpace,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: () => Get.back(),
-                child: const Icon(Icons.arrow_back, color: Colors.white),
+              Text(
+                "Electrician",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              10.horizontalSpace,
-              CircleAvatar(
-                radius: 24,
-                backgroundColor: Colors.orange,
-                child: const Icon(Icons.flash_on, color: Colors.white),
-              ),
-              12.horizontalSpace,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Electrician",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "Electrical repairs & installations",
-                    style: TextStyle(color: Colors.white70, fontSize: 12.sp),
-                  ),
-                ],
+              Text(
+                "Electrical repairs & installations",
+                style: TextStyle(color: Colors.white70, fontSize: 12.sp),
               ),
             ],
           ),
@@ -124,19 +133,19 @@ class ServiceDetailScreen extends StatelessWidget {
     return Row(
       children: [
         const Icon(Icons.star, color: Colors.orange, size: 20),
-        SizedBox(width: 4.w),
+        4.horizontalSpace,
         Text(
           "4.8",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
         ),
-        SizedBox(width: 4.w),
+        4.horizontalSpace,
         Text(
           "(2.5k reviews)",
           style: TextStyle(color: Colors.grey, fontSize: 12.sp),
         ),
         const Spacer(),
         const Icon(Icons.access_time, size: 18, color: Colors.grey),
-        SizedBox(width: 4.w),
+        4.horizontalSpace,
         Text(
           "Avg. 45 min arrival",
           style: TextStyle(color: Colors.grey, fontSize: 12.sp),
@@ -149,11 +158,15 @@ class ServiceDetailScreen extends StatelessWidget {
   Widget _sectionTitle(String title) {
     return Row(
       children: [
-        const Icon(Icons.handyman, size: 18),
-        SizedBox(width: 6.w),
+        Icon(Icons.handyman, size: 18, color: AppColor.primaryColor),
+        6.horizontalSpace,
         Text(
           title,
-          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+            color: AppColor.primaryColor,
+          ),
         ),
       ],
     );
@@ -166,27 +179,32 @@ class ServiceDetailScreen extends StatelessWidget {
     required String price,
   }) {
     return GestureDetector(
-      onTap: () {
-        Get.to(() => BookingStepperScreen());
-      },
+      onTap: () => Get.to(() => BookingStepperScreen()),
       child: Container(
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(14.w),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(14.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
         child: Row(
           children: [
             Container(
               padding: EdgeInsets.all(8.w),
               decoration: BoxDecoration(
-                color: const Color(0xffEAF0FF),
-                borderRadius: BorderRadius.circular(10),
+                color: AppColor.primaryColor.withOpacity(0.10),
+                borderRadius: BorderRadius.circular(10.r),
               ),
-              child: const Icon(Icons.build, color: Color(0xff4285F4)),
+              child: Icon(Icons.build, color: AppColor.primaryColor),
             ),
-            SizedBox(width: 12.w),
+            12.horizontalSpace,
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,7 +216,7 @@ class ServiceDetailScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 4.h),
+                  4.verticalSpace,
                   Row(
                     children: [
                       const Icon(
@@ -206,7 +224,7 @@ class ServiceDetailScreen extends StatelessWidget {
                         size: 14,
                         color: Colors.grey,
                       ),
-                      SizedBox(width: 4.w),
+                      4.horizontalSpace,
                       Text(
                         time,
                         style: TextStyle(color: Colors.grey, fontSize: 12.sp),
@@ -222,7 +240,7 @@ class ServiceDetailScreen extends StatelessWidget {
                 Text(
                   price,
                   style: TextStyle(
-                    color: const Color(0xff4285F4),
+                    color: AppColor.primaryColor,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -239,18 +257,19 @@ class ServiceDetailScreen extends StatelessWidget {
     );
   }
 
+  /// ✅ Success / Popular Message
   Widget _successMessage() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: const Color(0xffE6F4EA),
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.green.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Row(
-        children: const [
-          Icon(Icons.emoji_events, color: Colors.green),
-          SizedBox(width: 12),
-          Expanded(
+        children: [
+          const Icon(Icons.emoji_events, color: Colors.green),
+          12.horizontalSpace,
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

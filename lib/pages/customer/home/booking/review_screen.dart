@@ -4,6 +4,7 @@ import 'package:fix_master/pages/customer/dashboard/customer_bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:fix_master/utils/color_constant.dart';
 
 class ServiceCompletedScreen extends StatefulWidget {
   const ServiceCompletedScreen({super.key});
@@ -16,7 +17,6 @@ class _ServiceCompletedScreenState extends State<ServiceCompletedScreen>
     with SingleTickerProviderStateMixin {
   int selectedRating = 0;
   int selectedTipIndex = -1;
-
   final List<String> tips = ["\$5", "\$10", "\$15", "Custom"];
   final TextEditingController reviewCtrl = TextEditingController();
 
@@ -87,9 +87,7 @@ class _ServiceCompletedScreenState extends State<ServiceCompletedScreen>
                   bool isFilled = index < selectedRating;
                   return GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedRating = index + 1;
-                      });
+                      setState(() => selectedRating = index + 1);
                       _starAnimController.forward().then((_) {
                         _starAnimController.reverse();
                       });
@@ -98,7 +96,7 @@ class _ServiceCompletedScreenState extends State<ServiceCompletedScreen>
                       scale: _starAnimController,
                       child: Icon(
                         Icons.star,
-                        size: 36,
+                        size: 36.sp,
                         color: isFilled ? Colors.orange : Colors.grey.shade300,
                       ),
                     ),
@@ -176,19 +174,17 @@ class _ServiceCompletedScreenState extends State<ServiceCompletedScreen>
                     label: Text(tips[index]),
                     selected: isSelected,
                     onSelected: (_) {
-                      setState(() {
-                        selectedTipIndex = index;
-                      });
+                      setState(() => selectedTipIndex = index);
                     },
-                    selectedColor: const Color(0xff4285F4),
+                    selectedColor: AppColor.primaryColor,
                     backgroundColor: Colors.grey.shade100,
                     labelStyle: TextStyle(
                       color: isSelected ? Colors.white : Colors.black,
                       fontWeight: FontWeight.w600,
                     ),
                     padding: EdgeInsets.symmetric(
-                      vertical: 10.h,
-                      horizontal: 16.w,
+                      vertical: 6.h,
+                      horizontal: 10.w,
                     ),
                   );
                 }),
@@ -225,20 +221,24 @@ class _ServiceCompletedScreenState extends State<ServiceCompletedScreen>
                   onPressed: selectedRating == 0
                       ? null
                       : () {
-                          // Submit logic here
+                          // Submit review logic
                           Get.offAll(() => const CustomerBottomNav());
                         },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: selectedRating == 0
                         ? Colors.grey.shade400
-                        : const Color(0xff4285F4),
+                        : AppColor.primaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     "Submit Review",
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

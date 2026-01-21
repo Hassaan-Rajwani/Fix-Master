@@ -1,8 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
 import 'package:fix_master/pages/auth/login_screen.dart';
 import 'package:fix_master/pages/customer/setting/payment_method.dart';
 import 'package:fix_master/pages/customer/setting/saved_address.dart';
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -53,10 +56,15 @@ class SettingScreen extends StatelessWidget {
   Widget _topProfileHeader() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(20.w, 60.h, 20.w, 20.h),
-      decoration: const BoxDecoration(
-        color: Color(0xff4285F4),
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+      padding: EdgeInsets.fromLTRB(
+        20.w,
+        Platform.isAndroid ? 50.h : 70.h,
+        20.w,
+        20.h,
+      ),
+      decoration: BoxDecoration(
+        color: AppColor.primaryColor,
+        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +86,7 @@ class SettingScreen extends StatelessWidget {
                 child: Icon(
                   Icons.person,
                   size: 32,
-                  color: const Color(0xff4285F4),
+                  color: AppColor.primaryColor,
                 ),
               ),
               SizedBox(width: 15.w),
@@ -147,7 +155,7 @@ class SettingScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff4285F4),
+                backgroundColor: AppColor.primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -210,11 +218,8 @@ class SettingScreen extends StatelessWidget {
               onPressed: () {
                 Get.offAll(() => LoginScreen());
               },
-              icon: const Icon(Icons.logout, color: Colors.red),
-              label: const Text(
-                "Sign Out",
-                style: TextStyle(color: Colors.red),
-              ),
+              icon: Icon(Icons.logout, color: Colors.red),
+              label: Text("Sign Out", style: TextStyle(color: Colors.red)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xffFDECEC),
                 elevation: 4,
@@ -249,8 +254,8 @@ class SettingScreen extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundColor: const Color(0xffEEF3FF),
-              child: Icon(icon, color: const Color(0xff4285F4)),
+              backgroundColor: AppColor.primaryColor.withOpacity(0.10),
+              child: Icon(icon, color: AppColor.primaryColor),
             ),
             SizedBox(width: 14.w),
             Expanded(

@@ -4,6 +4,7 @@ import 'package:fix_master/pages/customer/home/booking/track_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:fix_master/utils/color_constant.dart';
 
 class BookingConfirmedScreen extends StatefulWidget {
   const BookingConfirmedScreen({super.key});
@@ -120,16 +121,23 @@ class _BookingConfirmedScreenState extends State<BookingConfirmedScreen>
                   ),
                   child: Ink(
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xff4285F4), Color(0xff6EA8FF)],
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColor.primaryColor,
+                          AppColor.primaryColor.withOpacity(0.8),
+                        ],
                       ),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Container(
                       alignment: Alignment.center,
-                      child: const Text(
+                      child: Text(
                         "Track Service",
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -166,12 +174,12 @@ class _BookingConfirmedScreenState extends State<BookingConfirmedScreen>
               Container(
                 padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
+                  color: AppColor.primaryColor.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.electrical_services,
-                  color: Color(0xff4285F4),
+                  color: AppColor.primaryColor,
                   size: 24,
                 ),
               ),

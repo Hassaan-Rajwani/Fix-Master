@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:fix_master/pages/customer/home/booking/payment_stepper.dart';
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,17 +17,20 @@ class PaymentMethodsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
       appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
-        backgroundColor: const Color(0xffF6F7FB),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+        toolbarHeight: 80.h,
+        leading: GestureDetector(
+          onTap: () => Get.back(),
+          child: Icon(Icons.arrow_back, color: AppColor.primaryColor),
         ),
-        title: const Text(
+        title: Text(
           "Payment Methods",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: AppColor.primaryColor,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        centerTitle: true,
       ),
       body: PaymentMethodStep(),
       bottomNavigationBar: Container(
@@ -39,7 +43,7 @@ class PaymentMethodsScreen extends StatelessWidget {
               Get.back();
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff4285F4),
+              backgroundColor: AppColor.primaryColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),

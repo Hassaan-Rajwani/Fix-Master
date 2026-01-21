@@ -4,7 +4,7 @@ import 'package:fix_master/controllers/provider/dashboard/provider_bottom_nav_co
 import 'package:fix_master/pages/provider/earnings/earning_screen.dart';
 import 'package:fix_master/pages/provider/jobs/job_screen.dart';
 import 'package:fix_master/pages/provider/setting/provider_setting_screen.dart';
-import 'package:fix_master/pages/provider/stats/stats_screen.dart';
+import 'package:fix_master/pages/provider/performance/performance_screen.dart';
 import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/utils/font_constant.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class _ProviderBottomNavState extends State<ProviderBottomNav> {
   final screens = [
     JobScreen(),
     EarningsPage(),
-    StatsScreen(),
+    PerformanceScreen(),
     ProviderSettingScreen(),
   ];
 
@@ -145,14 +145,16 @@ class _ProviderBottomNavState extends State<ProviderBottomNav> {
         ),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColor.primaryColor2.withOpacity(0.12)
+              ? AppColor.primaryColor2.withOpacity(0.10)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16.r),
         ),
         child: Icon(
           isSelected ? activeIcon : icon,
-          color: isSelected ? AppColor.primaryColor2 : Colors.grey.shade600,
-          size: 26.sp,
+          color: isSelected
+              ? AppColor.primaryColor2
+              : AppColor.primaryColor2.withOpacity(0.45),
+          size: isSelected ? 27.sp : 25.sp,
         ),
       ),
     );

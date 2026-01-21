@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class JobDetailScreen extends StatelessWidget {
   const JobDetailScreen({super.key});
@@ -11,11 +13,20 @@ class JobDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
       appBar: AppBar(
-        backgroundColor: const Color(0xff19A74A),
+        backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text("Job Details"),
-        toolbarHeight: 80,
-        centerTitle: true,
+        toolbarHeight: 80.h,
+        leading: GestureDetector(
+          onTap: () => Get.back(),
+          child: Icon(Icons.arrow_back, color: AppColor.primaryColor2),
+        ),
+        title: Text(
+          "Job Details",
+          style: TextStyle(
+            color: AppColor.primaryColor2,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.w),
@@ -38,8 +49,11 @@ class JobDetailScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xff4F7CFE), Color(0xff6AA8FF)],
+        gradient: LinearGradient(
+          colors: [
+            AppColor.primaryColor,
+            AppColor.primaryColor.withOpacity(0.8),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -165,8 +179,8 @@ class JobDetailScreen extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 26,
-            backgroundColor: Colors.green.withOpacity(0.2),
-            child: const Icon(Icons.person, color: Colors.green),
+            backgroundColor: AppColor.primaryColor2.withOpacity(0.2),
+            child: const Icon(Icons.person, color: AppColor.primaryColor2),
           ),
           SizedBox(width: 12.w),
           Expanded(
@@ -189,7 +203,7 @@ class JobDetailScreen extends StatelessWidget {
             icon: const Icon(Icons.chat, size: 16),
             label: const Text("Chat"),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff19A74A),
+              backgroundColor: AppColor.primaryColor2,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16.r),
               ),

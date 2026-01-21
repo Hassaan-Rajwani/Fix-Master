@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class BookingDetailScreen extends StatelessWidget {
   final Map<String, dynamic> booking;
@@ -32,11 +34,11 @@ class BookingDetailScreen extends StatelessWidget {
     Color statusColor() {
       switch (statusType) {
         case 0:
-          return Colors.blue;
+          return AppColor.primaryColor; // Upcoming
         case 1:
-          return Colors.green;
+          return Colors.green; // Completed
         case 2:
-          return Colors.red;
+          return Colors.red; // Cancelled
         default:
           return Colors.grey;
       }
@@ -45,17 +47,20 @@ class BookingDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
       appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
-        backgroundColor: const Color(0xffF6F7FB),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+        toolbarHeight: 80.h,
+        leading: GestureDetector(
+          onTap: () => Get.back(),
+          child: Icon(Icons.arrow_back, color: AppColor.primaryColor),
         ),
-        title: const Text(
+        title: Text(
           "Booking Details",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: AppColor.primaryColor,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.w),
@@ -113,6 +118,7 @@ class BookingDetailScreen extends StatelessWidget {
                           SizedBox(width: 4.w),
                           Text(
                             "${booking["providerRating"]} (${booking["providerJobs"]} jobs)",
+                            style: TextStyle(color: Colors.grey.shade700),
                           ),
                         ],
                       ),
@@ -144,7 +150,7 @@ class BookingDetailScreen extends StatelessWidget {
                 children: [
                   _infoRow("Service Fee", booking["serviceFee"]),
                   _infoRow("Tax", booking["tax"]),
-                  const Divider(),
+                  Divider(color: Colors.grey.shade300),
                   _infoRow("Total", booking["total"], isBold: true),
                 ],
               ),
@@ -183,14 +189,11 @@ class BookingDetailScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                status,
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-              ),
+              Text(status, style: TextStyle(fontWeight: FontWeight.bold)),
               SizedBox(height: 4.h),
               Text(
                 "Thank you for using our service",
-                style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                style: TextStyle(color: Colors.grey),
               ),
             ],
           ),
@@ -210,10 +213,7 @@ class BookingDetailScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-          ),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 12.h),
           child,
         ],
@@ -237,7 +237,7 @@ class BookingDetailScreen extends StatelessWidget {
             value,
             style: TextStyle(
               fontWeight: isBold ? FontWeight.bold : FontWeight.w500,
-              color: valueColor ?? Colors.black,
+              color: valueColor ?? AppColor.primaryColor,
             ),
           ),
         ],

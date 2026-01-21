@@ -1,4 +1,5 @@
 import 'package:fix_master/controllers/customer/home/booking_stepper_controller.dart';
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class DateTimeStep extends StatelessWidget {
           ),
           SizedBox(height: 20.h),
 
-          /// Date
+          /// 📅 Date
           Text(
             "Choose Date",
             style: TextStyle(color: Colors.grey, fontSize: 13.sp),
@@ -32,7 +33,7 @@ class DateTimeStep extends StatelessWidget {
 
           SizedBox(height: 25.h),
 
-          /// Time
+          /// ⏰ Time
           Text(
             "Choose Time",
             style: TextStyle(color: Colors.grey, fontSize: 13.sp),
@@ -44,6 +45,7 @@ class DateTimeStep extends StatelessWidget {
     );
   }
 
+  /// 📅 Date Selector
   Widget _dateSelector() {
     return Obx(
       () => DatePicker(
@@ -51,7 +53,7 @@ class DateTimeStep extends StatelessWidget {
         height: 85.h,
         width: 70.w,
         initialSelectedDate: controller.selectedDate.value,
-        selectionColor: const Color(0xff4285F4),
+        selectionColor: AppColor.primaryColor,
         selectedTextColor: Colors.white,
         dateTextStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
         dayTextStyle: TextStyle(fontSize: 12.sp, color: Colors.grey),
@@ -75,36 +77,37 @@ class DateTimeStep extends StatelessWidget {
     ];
 
     return Wrap(
-      spacing: 6.w,
-      runSpacing: 6.h,
+      spacing: 8.w,
+      runSpacing: 8.h,
       children: List.generate(times.length, (index) {
-        return Obx(
-          () => GestureDetector(
+        return Obx(() {
+          final bool isSelected = controller.selectedTimeIndex.value == index;
+
+          return GestureDetector(
             onTap: () => controller.selectTime(index),
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 12.w),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 14.w),
               decoration: BoxDecoration(
-                color: controller.selectedTimeIndex.value == index
-                    ? const Color(0xff4285F4)
-                    : Colors.white,
-                borderRadius: BorderRadius.circular(20),
+                color: isSelected ? AppColor.primaryColor : Colors.white,
+                borderRadius: BorderRadius.circular(20.r),
                 border: Border.all(
-                  color: controller.selectedTimeIndex.value == index
-                      ? const Color(0xff4285F4)
+                  color: isSelected
+                      ? AppColor.primaryColor
                       : Colors.grey.shade300,
                 ),
               ),
               child: Text(
                 times[index],
                 style: TextStyle(
-                  color: controller.selectedTimeIndex.value == index
-                      ? Colors.white
-                      : Colors.black,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w500,
+                  color: isSelected ? Colors.white : Colors.black,
                 ),
               ),
             ),
-          ),
-        );
+          );
+        });
       }),
     );
   }

@@ -136,14 +136,16 @@ class _CustomerBottomNavState extends State<CustomerBottomNav> {
         ),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColor.primaryColor.withOpacity(0.12)
+              ? AppColor.primaryColor.withOpacity(0.10)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16.r),
         ),
         child: Icon(
           isSelected ? activeIcon : icon,
-          size: 26.sp,
-          color: isSelected ? AppColor.primaryColor : Colors.grey,
+          size: isSelected ? 27.sp : 25.sp,
+          color: isSelected
+              ? AppColor.primaryColor
+              : AppColor.primaryColor.withOpacity(0.45),
         ),
       ),
     );

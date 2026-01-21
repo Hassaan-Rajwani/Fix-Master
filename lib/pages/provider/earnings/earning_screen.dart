@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:fix_master/utils/color_constant.dart';
 import 'package:fix_master/pages/provider/earnings/earning_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,18 @@ class EarningsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF6F7FB),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        toolbarHeight: 80.h,
+        title: Text(
+          "Earnings",
+          style: TextStyle(
+            color: AppColor.primaryColor2,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16.w),
@@ -19,11 +32,7 @@ class EarningsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Earnings",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 5.h),
               _balanceCard(),
               SizedBox(height: 20.h),
               _statsRow(),
@@ -56,8 +65,11 @@ class EarningsPage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xff14A44D), Color(0xff19C964)],
+        gradient: LinearGradient(
+          colors: [
+            AppColor.primaryColor2,
+            AppColor.primaryColor2.withOpacity(0.8),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -103,7 +115,7 @@ class EarningsPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white.withOpacity(0.2),
+                    backgroundColor: Colors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.r),
@@ -112,7 +124,10 @@ class EarningsPage extends StatelessWidget {
                   ),
                   child: const Text(
                     "Withdraw",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: AppColor.primaryColor2,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -130,10 +145,10 @@ class EarningsPage extends StatelessWidget {
                     ),
                     padding: EdgeInsets.symmetric(vertical: 12.h),
                   ),
-                  child: const Text(
+                  child: Text(
                     "View History",
                     style: TextStyle(
-                      color: Color(0xff14A44D),
+                      color: AppColor.primaryColor2,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -180,7 +195,7 @@ class EarningsPage extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: active ? const Color(0xff14A44D) : Colors.transparent,
+            color: active ? AppColor.primaryColor2 : Colors.transparent,
             width: 1.2,
           ),
           boxShadow: [
@@ -199,14 +214,14 @@ class EarningsPage extends StatelessWidget {
                 Icon(
                   Icons.calendar_month_outlined,
                   size: 16,
-                  color: active ? const Color(0xff14A44D) : Colors.grey,
+                  color: active ? AppColor.primaryColor2 : Colors.grey,
                 ),
                 SizedBox(width: 6.w),
                 Text(
                   title,
                   style: TextStyle(
                     fontSize: 12,
-                    color: active ? const Color(0xff14A44D) : Colors.grey,
+                    color: active ? AppColor.primaryColor2 : Colors.grey,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -259,10 +274,10 @@ class EarningsPage extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 20,
-            backgroundColor: const Color(0xff14A44D).withOpacity(0.15),
+            backgroundColor: AppColor.primaryColor2.withOpacity(0.15),
             child: const Icon(
               Icons.trending_up,
-              color: Color(0xff14A44D),
+              color: AppColor.primaryColor2,
               size: 20,
             ),
           ),
@@ -287,8 +302,8 @@ class EarningsPage extends StatelessWidget {
             children: [
               Text(
                 amount,
-                style: const TextStyle(
-                  color: Color(0xff14A44D),
+                style: TextStyle(
+                  color: AppColor.primaryColor2,
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),
